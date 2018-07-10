@@ -1,0 +1,8 @@
+/DebugOsx/
+/ReleaseOsx/
+/DebugArm/
+.DS_Store
+/build_ReleaseOsx/
+/build_DebugArm/
+/build_ReleaseArm/
+/build_DebugOsx/
