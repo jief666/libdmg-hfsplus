@@ -1,0 +1,5 @@
+#
+SCRIPT_ABS_FILENAME=`perl -e 'use Cwd "abs_path";print abs_path(shift)' "${BASH_SOURCE[0]}"`
+SCRIPT_DIR=`dirname "$SCRIPT_ABS_FILENAME"`
+
+scp -P 8974 "$SCRIPT_DIR"/build_ReleaseArm/libdmg-hfsplus--jief--wip jief@syno.jf-luce.name:///var/services/homes/jief/Fuse/libdmg-fuse--wip

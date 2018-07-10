@@ -1,0 +1,1 @@
+hdiutil create ImgNoMapTest.dmg -size 1m -volname "ImgNoMapTest" -fs JHFS+ -layout NONE

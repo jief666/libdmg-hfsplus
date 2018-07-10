@@ -1,0 +1,12 @@
+#
+SCRIPT_ABS_FILENAME=`perl -e 'use Cwd "abs_path";print abs_path(shift)' "${BASH_SOURCE[0]}"`
+SCRIPT_DIR=`dirname "$SCRIPT_ABS_FILENAME"`
+
+cd "$SCRIPT_DIR"
+
+touch "file+lotxattrs"
+for i in {1..200}
+do
+  echo $i
+  xattr -w xattr$i "$i" "file+lotxattrs"
+done
