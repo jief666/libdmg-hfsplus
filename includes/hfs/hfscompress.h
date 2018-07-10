@@ -9,7 +9,7 @@
 typedef struct HFSPlusDecmpfs {
 	uint32_t magic;
 	uint32_t flags;
-	uint64_t size;
+	uint64_t uncompressed_size;
 	uint8_t data[0];
 } __attribute__ ((packed)) HFSPlusDecmpfs;
 

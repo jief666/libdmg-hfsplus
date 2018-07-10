@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
 #include "abstractfile.h"
 
 #define CHECKSUM_CRC32 0x00000002

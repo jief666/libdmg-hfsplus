@@ -4,8 +4,8 @@
 #include <time.h>
 #include <sys/types.h>
 #include "common.h"
-#include <hfs/hfsplus.h>
-#include <hfs/hfscompress.h>
+#include "../includes/hfs/hfsplus.h"
+#include "../includes/hfs/hfscompress.h"
 #include "abstractfile.h"
 #include <sys/stat.h>
 #include <inttypes.h>
@@ -29,19 +29,19 @@ void writeToFile(HFSPlusCatalogFile* file, AbstractFile* output, Volume* volume)
 	if(file->permissions.ownerFlags & UF_COMPRESSED) {
 		io = openHFSPlusCompressed(volume, file);
 		if(io == NULL) {
-			hfs_panic("error opening file");
-			free(buffer);
-			return;
+			hfs_panic("error opening file"); // Does not return
+//            free(buffer);
+//            return;
 		}
 
 		curPosition = 0;
-		bytesLeft = ((HFSPlusCompressed*) io->data)->decmpfs->size;
+		bytesLeft = ((HFSPlusCompressed*) io->data)->decmpfs->uncompressed_size;
 	} else {
 		io = openRawFile(file->fileID, &file->dataFork, (HFSPlusCatalogRecord*)file, volume);
 		if(io == NULL) {
-			hfs_panic("error opening file");
-			free(buffer);
-			return;
+			hfs_panic("error opening file"); // Does not return
+//            free(buffer);
+//            return;
 		}
 
 		curPosition = 0;
@@ -50,16 +50,16 @@ void writeToFile(HFSPlusCatalogFile* file, AbstractFile* output, Volume* volume)
 	while(bytesLeft > 0) {
 		if(bytesLeft > BUFSIZE) {
 			if(!READ(io, curPosition, BUFSIZE, buffer)) {
-				hfs_panic("error reading");
+				hfs_panic("error reading 5");
 			}
 			if(output->write(output, buffer, BUFSIZE) != BUFSIZE) {
-				hfs_panic("error writing");
+				hfs_panic("error writing 6");
 			}
 			curPosition += BUFSIZE;
 			bytesLeft -= BUFSIZE;
 		} else {
 			if(!READ(io, curPosition, bytesLeft, buffer)) {
-				hfs_panic("error reading");
+				hfs_panic("error reading 6");
 			}
 			if(output->write(output, buffer, bytesLeft) != bytesLeft) {
 				hfs_panic("error writing");
@@ -86,16 +86,16 @@ void writeToHFSFile(HFSPlusCatalogFile* file, AbstractFile* input, Volume* volum
 	if(file->permissions.ownerFlags & UF_COMPRESSED) {
 		io = openHFSPlusCompressed(volume, file);
 		if(io == NULL) {
-			hfs_panic("error opening file");
-			free(buffer);
-			return;
+			hfs_panic("error opening file"); // Does not return
+//            free(buffer);
+//            return;
 		}
 	} else {
 		io = openRawFile(file->fileID, &file->dataFork, (HFSPlusCatalogRecord*)file, volume);
 		if(io == NULL) {
-			hfs_panic("error opening file");
-			free(buffer);
-			return;
+			hfs_panic("error opening file"); // Does not return
+//            free(buffer);
+//            return;
 		}
 		allocate((RawFile*)io->data, bytesLeft);
 	}
@@ -105,7 +105,7 @@ void writeToHFSFile(HFSPlusCatalogFile* file, AbstractFile* input, Volume* volum
 	while(bytesLeft > 0) {
 		if(bytesLeft > BUFSIZE) {
 			if(input->read(input, buffer, BUFSIZE) != BUFSIZE) {
-				hfs_panic("error reading");
+				hfs_panic("error reading 7");
 			}
 			if(!WRITE(io, curPosition, BUFSIZE, buffer)) {
 				hfs_panic("error writing");
@@ -114,10 +114,10 @@ void writeToHFSFile(HFSPlusCatalogFile* file, AbstractFile* input, Volume* volum
 			bytesLeft -= BUFSIZE;
 		} else {
 			if(input->read(input, buffer, (size_t)bytesLeft) != (size_t)bytesLeft) {
-				hfs_panic("error reading");
+				hfs_panic("error reading 8");
 			}
 			if(!WRITE(io, curPosition, (size_t)bytesLeft, buffer)) {
-				hfs_panic("error reading");
+				hfs_panic("error reading 9");
 			}
 			curPosition += bytesLeft;
 			bytesLeft -= bytesLeft;
@@ -534,7 +534,6 @@ void displayFolder(HFSCatalogNodeID folderID, Volume* volume) {
 	time_t fileTime;
 	struct tm *date;
 	HFSPlusDecmpfs* compressData;
-	size_t attrSize;
 	
 	theList = list = getFolderContents(folderID, volume);
 	
@@ -552,9 +551,9 @@ void displayFolder(HFSCatalogNodeID folderID, Volume* volume) {
 			printf("%3d ", file->permissions.ownerID);
 			printf("%3d ", file->permissions.groupID);
 			if(file->permissions.ownerFlags & UF_COMPRESSED) {
-				attrSize = getAttribute(volume, file->fileID, "com.apple.decmpfs", (uint8_t**)(&compressData));
+				/**attrSize = */ getAttribute(volume, file->fileID, "com.apple.decmpfs", (uint8_t**)(&compressData), 1);
 				flipHFSPlusDecmpfs(compressData);
-				printf("%12" PRId64 " ", compressData->size);
+				printf("%12" PRId64 " ", compressData->uncompressed_size);
 				free(compressData);
 			} else {
 				printf("%12" PRId64 " ", file->dataFork.logicalSize);
@@ -588,9 +587,9 @@ void displayFileLSLine(Volume* volume, HFSPlusCatalogFile* file, const char* nam
 	printf("%3d ", file->permissions.groupID);
 
 	if(file->permissions.ownerFlags & UF_COMPRESSED) {
-		getAttribute(volume, file->fileID, "com.apple.decmpfs", (uint8_t**)(&compressData));
+		getAttribute(volume, file->fileID, "com.apple.decmpfs", (uint8_t**)(&compressData), 1);
 		flipHFSPlusDecmpfs(compressData);
-		printf("%12" PRId64 " ", compressData->size);
+		printf("%12" PRId64 " ", compressData->uncompressed_size);
 		free(compressData);
 	} else {
 		printf("%12" PRId64 " ", file->dataFork.logicalSize);
@@ -606,7 +605,7 @@ void displayFileLSLine(Volume* volume, HFSPlusCatalogFile* file, const char* nam
 	printf("%s\n", name);
 
 	XAttrList* next;
-	XAttrList* attrs = getAllExtendedAttributes(file->fileID, volume);
+	XAttrList* attrs = getAllExtendedAttributes((HFSPlusCatalogFileOrFolderRecord*)file, volume);
 	if(attrs != NULL) {
 		printf("Extended attributes\n");
 		while(attrs != NULL) {
@@ -635,7 +634,7 @@ void hfs_ls(Volume* volume, const char* path) {
 		printf("No such file or directory\n");
 	}
 
-	printf("Total filesystem size: %d, free: %d\n", (volume->volumeHeader->totalBlocks - volume->volumeHeader->freeBlocks) * volume->volumeHeader->blockSize, volume->volumeHeader->freeBlocks * volume->volumeHeader->blockSize);
+	printf("Total filesystem size: %lld, free: %lld\n", ((uint64_t)(volume->volumeHeader->totalBlocks - volume->volumeHeader->freeBlocks)) * volume->volumeHeader->blockSize, ((uint64_t)volume->volumeHeader->freeBlocks) * volume->volumeHeader->blockSize); // cast to uint64_t to be plateform independant.
 	
 	free(record);
 }

@@ -78,7 +78,7 @@ static inline void hexToBytes(const char* hex, uint8_t** buffer, size_t* bytes) 
 
 static inline void hexToInts(const char* hex, unsigned int** buffer, size_t* bytes) {
 	*bytes = strlen(hex) / 2;
-	*buffer = (unsigned int*) malloc((*bytes) * sizeof(int));
+	*buffer = (unsigned int*) malloc((*bytes) * sizeof(unsigned int));
 	size_t i;
 	for(i = 0; i < *bytes; i++) {
 		sscanf(hex, "%2x", &((*buffer)[i]));
@@ -88,7 +88,7 @@ static inline void hexToInts(const char* hex, unsigned int** buffer, size_t* byt
 
 struct io_func_struct;
 
-typedef int (*readFunc)(struct io_func_struct* io, off_t location, size_t size, void *buffer);
+typedef size_t (*readFunc)(struct io_func_struct* io, off_t location, size_t size, void *buffer);
 typedef int (*writeFunc)(struct io_func_struct* io, off_t location, size_t size, void *buffer);
 typedef void (*closeFunc)(struct io_func_struct* io);
 

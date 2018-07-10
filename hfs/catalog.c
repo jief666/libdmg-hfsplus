@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
+
 
 static inline void flipBSDInfo(HFSPlusBSDInfo* info) {
   FLIPENDIAN(info->ownerID);
@@ -22,28 +23,34 @@ static inline void flipRect(Rect* rect) {
   FLIPENDIAN(rect->right);
 }
 
-static inline void flipFolderInfo(FolderInfo* info) {
+void flipFolderInfo(FolderInfo* info) {
   flipRect(&info->windowBounds);
   FLIPENDIAN(info->finderFlags);
   flipPoint(&info->location);
 }
 
-static inline void flipExtendedFolderInfo(ExtendedFolderInfo* info) {
-  flipPoint(&info->scrollPosition);
-  FLIPENDIAN(info->extendedFinderFlags);
-  FLIPENDIAN(info->putAwayFolderID);
+void flipExtendedFolderInfo(ExtendedFolderInfo* info) {
+//  flipPoint(&info->scrollPosition);
+//  FLIPENDIAN(info->extendedFinderFlags);
+//  FLIPENDIAN(info->putAwayFolderID);
+    FLIPENDIAN(info->date_added);
+    FLIPENDIAN(info->document_id);
+    FLIPENDIAN(info->extended_flags);
+    FLIPENDIAN(info->write_gen_counter);
 }
 
-static inline void flipFileInfo(FileInfo* info) {
+void flipFileInfo(FileInfo* info) {
   FLIPENDIAN(info->fileType);
   FLIPENDIAN(info->fileCreator);
   FLIPENDIAN(info->finderFlags);
   flipPoint(&info->location);
 }
 
-static inline void flipExtendedFileInfo(ExtendedFileInfo* info) {
-  FLIPENDIAN(info->extendedFinderFlags);
-  FLIPENDIAN(info->putAwayFolderID);
+void flipExtendedFileInfo(ExtendedFileInfo* info) {
+//  FLIPENDIAN(info->extendedFinderFlags);
+//  FLIPENDIAN(info->putAwayFolderID);
+  FLIPENDIAN(info->extended_flags);
+  FLIPENDIAN(info->write_gen_counter);
 }
 
 void flipCatalogFolder(HFSPlusCatalogFolder* record) {
@@ -59,7 +66,10 @@ void flipCatalogFolder(HFSPlusCatalogFolder* record) {
   
   flipBSDInfo(&record->permissions);
   flipFolderInfo(&record->userInfo);
+#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Waddress-of-packed-member"
   flipExtendedFolderInfo(&record->finderInfo);
+#pragma GCC diagnostic pop
   
   FLIPENDIAN(record->textEncoding);
   FLIPENDIAN(record->folderCount);
@@ -77,7 +87,10 @@ void flipCatalogFile(HFSPlusCatalogFile* record) {
   
   flipBSDInfo(&record->permissions);
   flipFileInfo(&record->userInfo);
+#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Waddress-of-packed-member"
   flipExtendedFileInfo(&record->finderInfo);
+#pragma GCC diagnostic pop
   
   FLIPENDIAN(record->textEncoding);
   
@@ -256,9 +269,9 @@ static int catalogKeyWrite(off_t offset, BTKey* toWrite, io_func* io) {
   return TRUE;
 }
 
-static BTKey* catalogDataRead(off_t offset, io_func* io) {
+static void* catalogDataRead(off_t offset, io_func* io) {
   int16_t recordType;
-  HFSPlusCatalogRecord* record;
+//  HFSPlusCatalogRecord* record = NULL;
   uint16_t nameLength;
   
   if(!READ(io, offset, sizeof(int16_t), &recordType))
@@ -267,49 +280,79 @@ static BTKey* catalogDataRead(off_t offset, io_func* io) {
   FLIPENDIAN(recordType); fflush(stdout);
 
   switch(recordType) {
-    case kHFSPlusFolderRecord:
-      record = (HFSPlusCatalogRecord*) malloc(sizeof(HFSPlusCatalogFolder));
-      if(!READ(io, offset, sizeof(HFSPlusCatalogFolder), record))
+    case kHFSPlusFolderRecord: {
+      HFSPlusCatalogFolder* record = (HFSPlusCatalogFolder*) malloc(sizeof(HFSPlusCatalogFolder));
+      if(!READ(io, offset, sizeof(HFSPlusCatalogFolder), record)) {
+    	free(record);
         return NULL;
+      }
       flipCatalogFolder((HFSPlusCatalogFolder*)record);
-      break;
-      
-    case kHFSPlusFileRecord:
-      record = (HFSPlusCatalogRecord*) malloc(sizeof(HFSPlusCatalogFile));
-      if(!READ(io, offset, sizeof(HFSPlusCatalogFile), record))
+      return (BTKey*)record;
+    }
+    case kHFSPlusFileRecord: {
+      HFSPlusCatalogFile*record = (HFSPlusCatalogFile*) malloc(sizeof(HFSPlusCatalogFile));
+      if(!READ(io, offset, sizeof(HFSPlusCatalogFile), record)) {
+    	free(record);
         return NULL;
+      }
       flipCatalogFile((HFSPlusCatalogFile*)record);
-      break;
-      
+      return (BTKey*)record;
+    }
     case kHFSPlusFolderThreadRecord:
     case kHFSPlusFileThreadRecord:
-      record = (HFSPlusCatalogRecord*) malloc(sizeof(HFSPlusCatalogThread));
+    {
+      HFSPlusCatalogThread*record = (HFSPlusCatalogThread*) malloc(sizeof(HFSPlusCatalogThread));
       
-      if(!READ(io, offset + sizeof(uint16_t) + sizeof(uint16_t) + sizeof(uint32_t), sizeof(uint16_t), &nameLength))
+      if(!READ(io, offset + sizeof(uint16_t) + sizeof(uint16_t) + sizeof(uint32_t), sizeof(uint16_t), &nameLength)) {
+    	free(record);
         return NULL;
+      }
 
       FLIPENDIAN(nameLength);
       
-      if(!READ(io, offset, sizeof(uint16_t) + sizeof(uint16_t) + sizeof(uint32_t) + sizeof(uint16_t) + (sizeof(uint16_t) * nameLength), record))
+      if(!READ(io, offset, sizeof(uint16_t) + sizeof(uint16_t) + sizeof(uint32_t) + sizeof(uint16_t) + (sizeof(uint16_t) * nameLength), record)) {
+    	free(record);
         return NULL;
+      }
       
       flipCatalogThread((HFSPlusCatalogThread*)record, FALSE);
-      break;
+      return (BTKey*)record;
+    }
   }
 
-  return (BTKey*)record;
+  return NULL;
 }
 
-void ASCIIToUnicode(const char* ascii, HFSUniStr255* unistr) {
-  int count;
-  
-  count = 0;
-  while(ascii[count] != '\0') {
-    unistr->unicode[count] = ascii[count];
-    count++;
-  }
-  
-  unistr->length = count;
+#include <unicode/ustring.h>
+#include <unicode/ucnv.h>
+#include <unicode/utypes.h>
+
+extern UConverter* g_utf16be;
+extern UConverter* g_utf16le;
+extern UConverter* g_utf8;
+void ASCIIToUnicode(const char* ascii, HFSUniStr255* unistr)
+{
+	UErrorCode unicode_error = U_ZERO_ERROR;
+	unistr->length = ucnv_toUChars(g_utf8, (UChar*)unistr->unicode, sizeof(unistr->unicode), ascii, strlen(ascii), &unicode_error);
+
+//  int count;
+
+//	UChar a[sizeof(unistr->unicode)+1];
+//	UErrorCode unicode_error = U_ZERO_ERROR;
+//	int32_t rv4 = ucnv_toUChars(g_utf8, a, sizeof(a), ascii, strlen(ascii), &unicode_error);
+
+//	// todo unicode err
+//	int32_t rv3 = ucnv_fromUChars(g_utf16le, (char*)unistr->unicode, sizeof(unistr->unicode), a, rv4, &unicode_error);
+//	// todo unicode err
+//	unistr->length = rv3/sizeof(unistr->unicode[0]);
+
+//  count = 0;
+//  while(ascii[count] != '\0') {
+//    unistr->unicode[count] = ascii[count];
+//    count++;
+//  }
+//
+//  unistr->length = count;
 }
 
 HFSPlusCatalogRecord* getRecordByCNID(HFSCatalogNodeID CNID, Volume* volume) {
@@ -322,7 +365,7 @@ HFSPlusCatalogRecord* getRecordByCNID(HFSCatalogNodeID CNID, Volume* volume) {
 	key.parentID = CNID;
 	key.nodeName.length = 0;
 	
-	thread = (HFSPlusCatalogThread*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+	thread = (HFSPlusCatalogThread*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
 	
 	if(thread == NULL) {
 		return NULL;
@@ -338,7 +381,7 @@ HFSPlusCatalogRecord* getRecordByCNID(HFSCatalogNodeID CNID, Volume* volume) {
     
 	free(thread);
 	
-    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
 	
 	if(record == NULL || exact == FALSE)
 		return NULL;
@@ -375,7 +418,7 @@ CatalogRecordList* getFolderContents(HFSCatalogNodeID CNID, Volume* volume) {
 
 	list = NULL;
 
-	record = (HFSPlusCatalogThread*) search(tree, (BTKey*)(&key), NULL, &nodeNumber, &recordNumber);
+	record = (HFSPlusCatalogThread*) search(tree, (BTKey*)(&key), NULL, &nodeNumber, &recordNumber, 1);
 
 	if(record == NULL)
 		return NULL;
@@ -403,7 +446,7 @@ CatalogRecordList* getFolderContents(HFSCatalogNodeID CNID, Volume* volume) {
 					ASCIIToUnicode(pathBuffer, &nkey.nodeName); 
 					nkey.keyLength = sizeof(nkey.parentID) + sizeof(nkey.nodeName.length) + (sizeof(uint16_t) * nkey.nodeName.length);
 
-					toReturn = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&nkey), &exact, NULL, NULL);
+					toReturn = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&nkey), &exact, NULL, NULL, 1);
 
 					free(item->record);
 					item->record = toReturn;
@@ -464,10 +507,10 @@ HFSPlusCatalogRecord* getLinkTarget(HFSPlusCatalogRecord* record, HFSCatalogNode
 	} else if(record->recordType == kHFSPlusFileRecord && (((HFSPlusCatalogFile*)record)->userInfo.fileType) == kHardLinkFileType) {
 		sprintf(pathBuffer, "iNode%d", ((HFSPlusCatalogFile*)record)->permissions.special.iNodeNum);
 		nkey.parentID = volume->metadataDir;
-    		ASCIIToUnicode(pathBuffer, &nkey.nodeName); 
+        ASCIIToUnicode(pathBuffer, &nkey.nodeName);
 		nkey.keyLength = sizeof(nkey.parentID) + sizeof(nkey.nodeName.length) + (sizeof(uint16_t) * nkey.nodeName.length);
 
-		toReturn = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&nkey), &exact, NULL, NULL);
+		toReturn = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&nkey), &exact, NULL, NULL, 1);
 
 		free(record);
 
@@ -490,20 +533,45 @@ HFSCatalogNodeID getMetadataDirectoryID(Volume* volume) {
 	key.parentID = kHFSRootFolderID;
 	memcpy(key.nodeName.unicode, METADATA_DIR, sizeof(METADATA_DIR));
 
-	record = (HFSPlusCatalogFolder*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+	record = (HFSPlusCatalogFolder*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
 	id = record->folderID;
 
 	free(record);
 
 	return id;
 }
+//
+//char cache_path[3000] = {};
+//HFSPlusCatalogRecord cache_record;
+//
+//HFSPlusCatalogRecord* getRecordFromPathCached(const char* path, Volume* volume)
+//{
+//    if ( strcmp(path, cache_path) == 0 ) {
+//        HFSPlusCatalogRecord* record = malloc(sizeof(HFSPlusCatalogRecord));
+//        memcpy(record, &cache_record, sizeof(HFSPlusCatalogRecord));
+//        return record;
+//    }
+//    HFSPlusCatalogRecord* record = getRecordFromPath(path, volume, NULL, NULL);
+//    if ( record ) {
+//        memcpy(cache_path, path, strlen(path));
+//        memcpy(&cache_record, record, sizeof(HFSPlusCatalogRecord));
+//    }else{
+//        cache_path[0] = 0;
+//    }
+//    return record;
+//}
+
+//HFSPlusCatalogRecord* getRecordFromPathCached(const char* path, Volume* volume)
+//{
+//    return getRecordFromPath(path, volume, NULL, NULL);
+//}
 
 HFSPlusCatalogRecord* getRecordFromPath(const char* path, Volume* volume, char **name, HFSPlusCatalogKey* retKey) {
-	return getRecordFromPath2(path, volume, name, retKey, TRUE);
+    return getRecordFromPath2(path, volume, name, retKey, TRUE);
 }
 
 HFSPlusCatalogRecord* getRecordFromPath2(const char* path, Volume* volume, char **name, HFSPlusCatalogKey* retKey, char traverse) {
-	return getRecordFromPath3(path, volume, name, retKey, TRUE, TRUE, kHFSRootFolderID);
+	return getRecordFromPath3(path, volume, name, retKey, traverse, TRUE, kHFSRootFolderID);
 }
 
 HFSPlusCatalogRecord* getRecordFromPath3(const char* path, Volume* volume, char **name, HFSPlusCatalogKey* retKey, char traverse, char returnLink, HFSCatalogNodeID parentID) {
@@ -515,7 +583,7 @@ HFSPlusCatalogRecord* getRecordFromPath3(const char* path, Volume* volume, char 
   char* word;
   char* pathLimit;
   
-  uint32_t realParent;
+  uint32_t realParent = kHFSRootFolderID; // Jief : to silent warning. Not sure.
  
   int exact;
   
@@ -527,13 +595,13 @@ HFSPlusCatalogRecord* getRecordFromPath3(const char* path, Volume* volume, char 
     key.parentID = kHFSRootFolderID;
     key.nodeName.length = 0;
     
-    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
     key.parentID = ((HFSPlusCatalogThread*)record)->parentID;
     key.nodeName = ((HFSPlusCatalogThread*)record)->nodeName;
     
     free(record);
 	
-    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
     return record;
   }
   
@@ -568,7 +636,7 @@ HFSPlusCatalogRecord* getRecordFromPath3(const char* path, Volume* volume, char 
     ASCIIToUnicode(word, &key.nodeName);
     
     key.keyLength = sizeof(key.parentID) + sizeof(key.nodeName.length) + (sizeof(uint16_t) * key.nodeName.length);
-    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+    record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
 
     if(record == NULL || exact == FALSE) {
       free(origPath);
@@ -638,7 +706,7 @@ int updateCatalog(Volume* volume, HFSPlusCatalogRecord* catalogRecord) {
   }
   key.nodeName.length = 0;
   
-  record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+  record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
   
   key.parentID = ((HFSPlusCatalogThread*)record)->parentID;
   key.nodeName = ((HFSPlusCatalogThread*)record)->nodeName;
@@ -646,7 +714,7 @@ int updateCatalog(Volume* volume, HFSPlusCatalogRecord* catalogRecord) {
 
   free(record);
 
-  record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL);
+  record = (HFSPlusCatalogRecord*) search(volume->catalogTree, (BTKey*)(&key), &exact, NULL, NULL, 1);
   
   removeFromBTree(volume->catalogTree, (BTKey*)(&key));
   
@@ -736,6 +804,10 @@ int move(const char* source, const char* dest, Volume* volume) {
     srcKey.parentID = ((HFSPlusCatalogFile*)srcRec)->fileID;
   } else {
     /* unexpected */
+      free(destPath);
+      free(srcRec);
+      free(destRec);
+      free(srcFolderRec);
     return FALSE;
   }
   srcKey.keyLength = sizeof(srcKey.parentID) + sizeof(srcKey.nodeName.length);
@@ -827,7 +899,7 @@ int removeFile(const char* fileName, Volume* volume) {
 
 			removeFromBTree(volume->catalogTree, (BTKey*)(&key));
 			XAttrList* next;
-			XAttrList* attrs = getAllExtendedAttributes(((HFSPlusCatalogFile*)record)->fileID, volume);
+			XAttrList* attrs = getAllExtendedAttributes((HFSPlusCatalogFileOrFolderRecord*)record, volume);
 			if(attrs != NULL) {
 				while(attrs != NULL) {
 					next = attrs->next;
@@ -854,7 +926,7 @@ int removeFile(const char* fileName, Volume* volume) {
 			} else {
 				removeFromBTree(volume->catalogTree, (BTKey*)(&key));
 				XAttrList* next;
-				XAttrList* attrs = getAllExtendedAttributes(((HFSPlusCatalogFolder*)record)->folderID, volume);
+				XAttrList* attrs = getAllExtendedAttributes(((HFSPlusCatalogFileOrFolderRecord*)record), volume);
 				if(attrs != NULL) {
 					while(attrs != NULL) {
 						next = attrs->next;
@@ -883,7 +955,7 @@ int removeFile(const char* fileName, Volume* volume) {
 
 		return TRUE;
 	} else {
-		free(parentFolder);
+		// free(parentFolder); here, parentFolder is not initialised. Ne free needed.
 		ASSERT(FALSE, "cannot find record");
 		return FALSE;
 	}

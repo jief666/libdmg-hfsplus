@@ -174,7 +174,7 @@ void abstractFilePrint(AbstractFile* file, const char* format, ...) {
 	ASSERT(file->write(file, buffer, length) == length, "fwrite");
 }
 
-int absFileRead(io_func* io, off_t location, size_t size, void *buffer) {
+size_t absFileRead(io_func* io, off_t location, size_t size, void *buffer) {
 	AbstractFile* file;
 	file = (AbstractFile*) io->data;
 	file->seek(file, location);

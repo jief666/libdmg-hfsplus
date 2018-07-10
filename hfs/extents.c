@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
+
 
 static inline void flipExtentDescriptor(HFSPlusExtentDescriptor* extentDescriptor) {
   FLIPENDIAN(extentDescriptor->startBlock);
@@ -101,7 +102,7 @@ static void extentKeyPrint(BTKey* toPrint) {
   printf("extent%d:%d:%d", key->forkType, key->fileID, key->startBlock);
 }
 
-static BTKey* extentDataRead(off_t offset, io_func* io) {
+static void* extentDataRead(off_t offset, io_func* io) {
   HFSPlusExtentRecord* record;
   
   record = (HFSPlusExtentRecord*) malloc(sizeof(HFSPlusExtentRecord));

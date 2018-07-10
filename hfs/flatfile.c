@@ -1,7 +1,7 @@
 #include <stdlib.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
 
-static int flatFileRead(io_func* io, off_t location, size_t size, void *buffer) {
+static size_t flatFileRead(io_func* io, off_t location, size_t size, void *buffer) {
   FILE* file;
   file = (FILE*) io->data;
   
@@ -75,6 +75,7 @@ io_func* openFlatFile(const char* fileName) {
   
   if(io->data == NULL) {
     perror("fopen");
+    free(io);
     return NULL;
   }
   
@@ -93,11 +94,12 @@ io_func* openFlatFileRO(const char* fileName) {
   
   if(io->data == NULL) {
     perror("fopen");
+    free(io);
     return NULL;
   }
   
   io->read = &flatFileRead;
-  io->write = &flatFileWrite;
+  io->write = NULL;
   io->close = &closeFlatFile;
   
   return io;

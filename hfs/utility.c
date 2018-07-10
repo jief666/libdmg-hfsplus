@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
 
-void hfs_panic(const char* hfs_panicString) {
+
+void __attribute__((noreturn)) hfs_panic(const char* hfs_panicString) {
   fprintf(stderr, "%s\n", hfs_panicString);
   exit(1);
 }

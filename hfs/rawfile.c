@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
 
 int writeExtents(RawFile* rawFile);
 
@@ -160,7 +160,9 @@ int allocate(RawFile* rawFile, off_t size) {
 	return TRUE;
 }
 
-static int rawFileRead(io_func* io,off_t location, size_t size, void *buffer) {
+static size_t rawFileRead(io_func* io, off_t location, size_t size, void *buffer)
+{
+//printf("ReadRawFile size=%d, location=%lld (0x%llx)\n", size, location, location);
 	RawFile* rawFile;
 	Volume* volume;
 	Extent* extent;
@@ -200,12 +202,14 @@ static int rawFileRead(io_func* io,off_t location, size_t size, void *buffer) {
 		possible = extent->blockCount * blockSize - locationInBlock;
 
 		if(size > possible) {
-			ASSERT(READ(volume->image, extent->startBlock * blockSize + locationInBlock, possible, buffer), "READ");
+//printf("1Read image possible=%zd, location=%lld (0x%llx)\n", possible, ((uint64_t)extent->startBlock) * blockSize + locationInBlock, ((uint64_t)extent->startBlock) * blockSize + locationInBlock);
+			ASSERT(READ(volume->image, ((uint64_t)extent->startBlock) * blockSize + locationInBlock, possible, buffer), "READ");
 			size -= possible;
 			buffer = (void*)(((size_t)buffer) + possible);
 			extent = extent->next;
 		} else {
-			ASSERT(READ(volume->image, extent->startBlock * blockSize + locationInBlock, size, buffer), "READ");
+//printf("2Read image size=%zd, location=%lld (0x%llx)\n", size, ((uint64_t)extent->startBlock) * blockSize + locationInBlock, ((uint64_t)extent->startBlock) * blockSize + locationInBlock);
+			ASSERT(READ(volume->image, ((uint64_t)extent->startBlock) * blockSize + locationInBlock, size, buffer), "READ");
 			break;
 		}
 
@@ -294,7 +298,7 @@ int removeExtents(RawFile* rawFile) {
 	HFSPlusForkData* forkData;
 	uint32_t currentBlock;
 
-	uint32_t startBlock;
+//	uint32_t startBlock;
 	uint32_t blockCount;
 
 	HFSPlusExtentDescriptor* descriptor;
@@ -324,7 +328,7 @@ int removeExtents(RawFile* rawFile) {
 			}
 
 			extentKey.startBlock = currentBlock;
-			descriptor = (HFSPlusExtentDescriptor*) search(rawFile->volume->extentsTree, (BTKey*)(&extentKey), &exact, NULL, NULL);
+			descriptor = (HFSPlusExtentDescriptor*) search(rawFile->volume->extentsTree, (BTKey*)(&extentKey), &exact, NULL, NULL, 1);
 			if(descriptor == NULL || exact == FALSE) {
 				hfs_panic("inconsistent extents information!");
 				return FALSE;
@@ -335,7 +339,7 @@ int removeExtents(RawFile* rawFile) {
 			}
 		}
 
-		startBlock = descriptor[currentExtent].startBlock;
+//		startBlock = descriptor[currentExtent].startBlock;
 		blockCount = descriptor[currentExtent].blockCount;
 
 		currentBlock += blockCount;
@@ -442,7 +446,7 @@ int readExtents(RawFile* rawFile) {
 			}
 
 			extentKey.startBlock = currentBlock;
-			descriptor = (HFSPlusExtentDescriptor*) search(rawFile->volume->extentsTree, (BTKey*)(&extentKey), &exact, NULL, NULL);
+			descriptor = (HFSPlusExtentDescriptor*) search(rawFile->volume->extentsTree, (BTKey*)(&extentKey), &exact, NULL, NULL, 1);
 			if(descriptor == NULL || exact == FALSE) {
 				hfs_panic("inconsistent extents information!");
 				return FALSE;
@@ -488,6 +492,9 @@ io_func* openRawFile(HFSCatalogNodeID id, HFSPlusForkData* forkData, HFSPlusCata
 	rawFile->forkData = forkData;
 	rawFile->catalogRecord = catalogRecord;
 	rawFile->extents = NULL;
+#ifdef DEBUG
+	rawFile->path = NULL;
+#endif
 
 	io->data = rawFile;
 	io->read = &rawFileRead;
@@ -495,6 +502,8 @@ io_func* openRawFile(HFSCatalogNodeID id, HFSPlusForkData* forkData, HFSPlusCata
 	io->close = &closeRawFile;
 
 	if(!readExtents(rawFile)) {
+        free(rawFile);
+        free(io);
 		return NULL;
 	}
 

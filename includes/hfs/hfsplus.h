@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 
-#include "common.h"
+#include "../common.h"
 
 #define READ(a, b, c, d) ((*((a)->read))(a, b, c, d))
 #define WRITE(a, b, c, d) ((*((a)->write))(a, b, c, d))
@@ -23,7 +23,8 @@ struct BTKey {
 
 typedef struct BTKey BTKey;
 
-typedef BTKey* (*dataReadFunc)(off_t offset, struct io_func_struct* io);
+typedef BTKey* (*keyReadFunc)(off_t offset, struct io_func_struct* io);
+typedef void* (*dataReadFunc)(off_t offset, struct io_func_struct* io);
 typedef void (*keyPrintFunc)(BTKey* toPrint);
 typedef int (*keyWriteFunc)(off_t offset, BTKey* toWrite, struct io_func_struct* io);
 typedef int (*compareFunc)(BTKey* left, BTKey* right);
@@ -235,12 +236,20 @@ struct FileInfo {
 } __attribute__((__packed__));
 typedef struct FileInfo   FileInfo;
 
+//struct ExtendedFileInfo {
+//  int16_t    reserved1[4];
+//  uint16_t    extendedFinderFlags;
+//  int16_t    reserved2;
+//  int32_t    putAwayFolderID;
+//} __attribute__((__packed__));
+// looking in Apple Source, this is the modern definition of ExtendedFileInfo
 struct ExtendedFileInfo {
-  int16_t    reserved1[4];
-  uint16_t    extendedFinderFlags;
-  int16_t    reserved2;
-  int32_t    putAwayFolderID;
-} __attribute__((__packed__));
+    uint32_t document_id;
+    uint32_t date_added;
+    uint16_t extended_flags;
+    uint16_t reserved2;
+    uint32_t write_gen_counter;
+} __attribute__((aligned(2), packed));
 typedef struct ExtendedFileInfo   ExtendedFileInfo;
 
 struct FolderInfo {
@@ -254,13 +263,20 @@ struct FolderInfo {
 } __attribute__((__packed__));
 typedef struct FolderInfo   FolderInfo;
 
+//struct ExtendedFolderInfo {
+//  Point     scrollPosition;     /* Scroll position (for icon views) */
+//  int32_t    reserved1;
+//  uint16_t    extendedFinderFlags;
+//  int16_t    reserved2;
+//  int32_t    putAwayFolderID;
+//} __attribute__((__packed__));
 struct ExtendedFolderInfo {
-  Point     scrollPosition;     /* Scroll position (for icon views) */
-  int32_t    reserved1;
-  uint16_t    extendedFinderFlags;
-  int16_t    reserved2;
-  int32_t    putAwayFolderID;
-} __attribute__((__packed__));
+    uint32_t document_id;
+    uint32_t date_added;
+    uint16_t extended_flags;
+    uint16_t reserved3;
+    uint32_t write_gen_counter;
+} __attribute__((aligned(2), packed));
 typedef struct ExtendedFolderInfo   ExtendedFolderInfo;
 
 #ifndef _STAT_H_
@@ -439,6 +455,14 @@ enum {
 	kHFSPlusCreator   = 0x6866732B   /* 'hfs+' */
 };
 
+/*
+ *    Alias type and creator for directory hard links
+ */
+enum {
+    kHFSAliasType        = 0x66647270,     /* 'fdrp' */
+    kHFSAliasCreator    = 0x4D414353    /* 'MACS' */
+};
+
 #endif
 
 struct HFSPlusCatalogRecord {
@@ -446,6 +470,17 @@ struct HFSPlusCatalogRecord {
   unsigned char data[0];
 } __attribute__((__packed__));
 typedef struct HFSPlusCatalogRecord HFSPlusCatalogRecord;
+
+
+typedef struct HFSPlusCatalogFileOrFolderRecord
+{
+	union
+	{
+		HFSPlusCatalogFile file;
+		HFSPlusCatalogFolder folder;
+	};
+} HFSPlusCatalogFileOrFolderRecord;
+
 
 struct CatalogRecordList {
   HFSUniStr255 name;
@@ -472,7 +507,7 @@ typedef struct {
   io_func* io;
   BTHeaderRec *headerRec;
   compareFunc compare;
-  dataReadFunc keyRead;
+  keyReadFunc keyRead;
   keyWriteFunc keyWrite;
   keyPrintFunc keyPrint;
   dataReadFunc dataRead;
@@ -496,12 +531,20 @@ typedef struct {
   Volume* volume;
   HFSPlusForkData* forkData;
   Extent* extents;
+#ifdef DEBUG
+  char* path;
+#endif
 } RawFile;
+
+
+#define RESOURCE_FORK_SUFFIX "#..namedfork#rsrc"
+#define XATTR_RESOURCE_FORK "com.apple.ResourceFork"
+#define XATTR_FINDER_INFO "com.apple.FinderInfo"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-	void hfs_panic(const char* panicString);
+	void __attribute__((noreturn)) hfs_panic(const char* panicString);
 
 	void printUnicode(HFSUniStr255* str);
 	char* unicodeToAscii(HFSUniStr255* str);
@@ -510,26 +553,28 @@ extern "C" {
 
 	BTHeaderRec* readBTHeaderRec(io_func* io);
 
-	BTree* openBTree(io_func* io, compareFunc compare, dataReadFunc keyRead, keyWriteFunc keyWrite, keyPrintFunc keyPrint, dataReadFunc dataRead);
+	BTree* openBTree(io_func* io, compareFunc compare, keyReadFunc keyRead, keyWriteFunc keyWrite, keyPrintFunc keyPrint, dataReadFunc dataRead);
 
 	void closeBTree(BTree* tree);
 
 	off_t getRecordOffset(int num, uint32_t nodeNum, BTree* tree);
 
-	off_t getNodeNumberFromPointerRecord(off_t offset, io_func* io);
+	uint32_t getNodeNumberFromPointerRecord(off_t offset, io_func* io);
 
-	void* search(BTree* tree, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber);
+    void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber, int panicIfNotFound);
+	void* search(BTree* tree, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber, int panicIfNotFound);
 
 	io_func* openFlatFile(const char* fileName);
 	io_func* openFlatFileRO(const char* fileName);
+	io_func* openSparsebundleRO(const char* fileName, const char* password);
 
 	io_func* openRawFile(HFSCatalogNodeID id, HFSPlusForkData* forkData, HFSPlusCatalogRecord* catalogRecord, Volume* volume);
 
 	BTree* openAttributesTree(io_func* file);
-	size_t getAttribute(Volume* volume, uint32_t fileID, const char* name, uint8_t** data);
+	size_t getAttribute(Volume* volume, uint32_t fileID, const char* name, uint8_t** data, int panicIfNotFound);
 	int setAttribute(Volume* volume, uint32_t fileID, const char* name, uint8_t* data, size_t size);
 	int unsetAttribute(Volume* volume, uint32_t fileID, const char* name);
-	XAttrList* getAllExtendedAttributes(HFSCatalogNodeID CNID, Volume* volume);
+	XAttrList* getAllExtendedAttributes(HFSPlusCatalogFileOrFolderRecord* fileOrFolder, Volume* volume);
 
 	void flipExtentRecord(HFSPlusExtentRecord* extentRecord);
 
@@ -540,6 +585,12 @@ extern "C" {
 	void flipCatalogFolder(HFSPlusCatalogFolder* record);
 	void flipCatalogFile(HFSPlusCatalogFile* record);
 	void flipCatalogThread(HFSPlusCatalogThread* record, int out);
+    void flipFileInfo(FileInfo* info);
+    void flipExtendedFileInfo(ExtendedFileInfo* info);
+    void flipFolderInfo(FolderInfo* info);
+    void flipExtendedFolderInfo(ExtendedFolderInfo* info);
+
+    void getVisibleFileInfo(HFSPlusCatalogFileOrFolderRecord* ffPtr, uint8_t buf[32]);
 
 	BTree* openCatalogTree(io_func* file);
 	int updateCatalog(Volume* volume, HFSPlusCatalogRecord* catalogRecord);

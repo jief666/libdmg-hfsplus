@@ -1,13 +1,15 @@
 #include <stdlib.h>
-#include <hfs/hfsplus.h>
+#include "../includes/hfs/hfsplus.h"
 
 BTNodeDescriptor* readBTNodeDescriptor(uint32_t num, BTree* tree) {
   BTNodeDescriptor* descriptor;
   
   descriptor = (BTNodeDescriptor*) malloc(sizeof(BTNodeDescriptor));
   
-  if(!READ(tree->io, num * tree->headerRec->nodeSize, sizeof(BTNodeDescriptor), descriptor))
+  if(!READ(tree->io, num * tree->headerRec->nodeSize, sizeof(BTNodeDescriptor), descriptor)) {
+    free(descriptor);
     return NULL;
+  }
     
   FLIPENDIAN(descriptor->fLink);
   FLIPENDIAN(descriptor->bLink);
@@ -25,9 +27,9 @@ static int writeBTNodeDescriptor(BTNodeDescriptor* descriptor, uint32_t num, BTr
   FLIPENDIAN(myDescriptor.bLink);
   FLIPENDIAN(myDescriptor.numRecords);
   
-  if(!WRITE(tree->io, num * tree->headerRec->nodeSize, sizeof(BTNodeDescriptor), &myDescriptor))
+  if(!WRITE(tree->io, num * tree->headerRec->nodeSize, sizeof(BTNodeDescriptor), &myDescriptor)) {
     return FALSE;
-    
+  }
   return TRUE;
 }
 
@@ -95,7 +97,7 @@ static int writeBTHeaderRec(BTree* tree) {
 }
 
 
-BTree* openBTree(io_func* io, compareFunc compare, dataReadFunc keyRead, keyWriteFunc keyWrite, keyPrintFunc keyPrint, dataReadFunc dataRead) {
+BTree* openBTree(io_func* io, compareFunc compare, keyReadFunc keyRead, keyWriteFunc keyWrite, keyPrintFunc keyPrint, dataReadFunc dataRead) {
   BTree* tree;
   
   tree = (BTree*) malloc(sizeof(BTree));
@@ -162,7 +164,7 @@ static off_t getFreeSpace(uint32_t nodeNum, BTNodeDescriptor* descriptor, BTree*
   return (freespaceOffsetOffset - freespaceOffset);
 }
 
-off_t getNodeNumberFromPointerRecord(off_t offset, io_func* io) {
+uint32_t getNodeNumberFromPointerRecord(off_t offset, io_func* io) {
   uint32_t nodeNum;
   
   if(!READ(io, offset, sizeof(uint32_t), &nodeNum)) {
@@ -174,23 +176,33 @@ off_t getNodeNumberFromPointerRecord(off_t offset, io_func* io) {
   return nodeNum;
 }
 
-static void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber) {
+void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber, int panicIfNotFound) {
   BTNodeDescriptor* descriptor;
   BTKey* key;
   off_t recordOffset;
-  off_t recordDataOffset;
-  off_t lastRecordDataOffset;
-  
+  off_t recordDataOffset = 0;
+  off_t lastRecordDataOffsetAfterFirt;
+
   int res;
   int i;
   
-  descriptor = readBTNodeDescriptor(root, tree);
+  descriptor = readBTNodeDescriptor(root, tree); // read only the header;
+
    
   if(descriptor == NULL)
     return NULL;
-    
-  lastRecordDataOffset = 0;
+        
+  lastRecordDataOffsetAfterFirt = 0;
   
+//for(i = 0; i < descriptor->numRecords; i++)
+//{
+//    off_t o = getRecordOffset(i, root, tree);
+//    HFSPlusAttrKey* k = READ_KEY(tree, o, tree->io);
+////    off_t rdo = o + k->keyLength + sizeof(k->keyLength);
+////    FLIPENDIAN(k->fileID);
+//    printf("node %d[%d] : offset %llx, fileID 0x%x\n", root, i, o - (off_t)root * tree->headerRec->nodeSize, k->fileID);
+//}
+
   for(i = 0; i < descriptor->numRecords; i++) {
     recordOffset = getRecordOffset(i, root, tree);
     key = READ_KEY(tree, recordOffset, tree->io);
@@ -215,16 +227,35 @@ static void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact
       } else {
       
         free(descriptor);
-        return searchNode(tree, getNodeNumberFromPointerRecord(recordDataOffset, tree->io), searchKey, exact, nodeNumber, recordNumber);
+        return searchNode(tree, getNodeNumberFromPointerRecord(recordDataOffset, tree->io), searchKey, exact, nodeNumber, recordNumber, panicIfNotFound);
       }
-    } else if(res > 0) {
+    } else if(res > 0) { // key is > searchKey
       break;
     }
 
-    lastRecordDataOffset = recordDataOffset;
+    lastRecordDataOffsetAfterFirt = recordDataOffset;
   }
 
-  if(lastRecordDataOffset == 0) {
+  if(lastRecordDataOffsetAfterFirt == 0) {
+    if ( !panicIfNotFound ) {
+      if(descriptor->kind == kBTLeafNode) {
+        if(nodeNumber != NULL) *nodeNumber = root;
+        if(recordNumber != NULL) *recordNumber = 0;
+        if(exact != NULL) *exact = FALSE;
+        free(descriptor);
+        return READ_DATA(tree, recordDataOffset, tree->io);
+      }else{
+        recordOffset = getRecordOffset(0, root, tree);
+        key = READ_KEY(tree, recordOffset, tree->io);
+        recordDataOffset = recordOffset + key->keyLength + sizeof(key->keyLength);
+        free(key);
+        uint32_t* childIndex = READ_DATA(tree, recordDataOffset, tree->io);
+        void* node = searchNode(tree, *childIndex, searchKey, exact, nodeNumber, recordNumber, panicIfNotFound);
+        free(childIndex);
+        free(descriptor);
+        return node;
+      }
+    }
     hfs_panic("BTree inconsistent!");
     return NULL;
   }
@@ -240,11 +271,11 @@ static void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact
       *exact = FALSE;
       
     free(descriptor);
-    return READ_DATA(tree, lastRecordDataOffset, tree->io);
+    return READ_DATA(tree, lastRecordDataOffsetAfterFirt, tree->io);
   } else if(descriptor->kind == kBTIndexNode) {
   
     free(descriptor);
-    return searchNode(tree, getNodeNumberFromPointerRecord(lastRecordDataOffset, tree->io), searchKey, exact, nodeNumber, recordNumber);
+    return searchNode(tree, getNodeNumberFromPointerRecord(lastRecordDataOffsetAfterFirt, tree->io), searchKey, exact, nodeNumber, recordNumber, panicIfNotFound);
   } else {
     if(nodeNumber != NULL)
       *nodeNumber = root;
@@ -260,8 +291,8 @@ static void* searchNode(BTree* tree, uint32_t root, BTKey* searchKey, int *exact
   }
 }
 
-void* search(BTree* tree, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber) {
-  return searchNode(tree, tree->headerRec->rootNode, searchKey, exact, nodeNumber, recordNumber);
+void* search(BTree* tree, BTKey* searchKey, int *exact, uint32_t *nodeNumber, int *recordNumber, int panicIfNotFound) {
+  return searchNode(tree, tree->headerRec->rootNode, searchKey, exact, nodeNumber, recordNumber, panicIfNotFound);
 }
 
 static uint32_t linearCheck(uint32_t* heightTable, unsigned char* map, BTree* tree, uint32_t *errCount) {
@@ -610,7 +641,7 @@ int debugBTree(BTree* tree, int displayTree) {
   BTKey* retLastKey;
   
   uint32_t numMapNodes;
-  uint32_t traverseCount;
+  uint32_t traverseCount = 0; // if tree->headerRec->rootNode == 0 and !(tree->headerRec->firstLeafNode == 0 && tree->headerRec->lastLeafNode == 0), traverseCount is uninitialized.
   uint32_t linearCount;
   uint32_t errorCount;
   
@@ -1044,8 +1075,6 @@ static int doAddRecord(BTree* tree, uint32_t root, BTKey* searchKey, size_t leng
   BTNodeDescriptor* descriptor;
   BTKey* key;
   off_t recordOffset;
-  off_t recordDataOffset;
-  off_t lastRecordDataOffset;
 
   uint16_t offset;
 
@@ -1056,13 +1085,11 @@ static int doAddRecord(BTree* tree, uint32_t root, BTKey* searchKey, size_t leng
    
   if(descriptor == NULL)
     return FALSE;
-    
-  lastRecordDataOffset = 0;
-  
+
   for(i = 0; i < descriptor->numRecords; i++) {
     recordOffset = getRecordOffset(i, root, tree);
     key = READ_KEY(tree, recordOffset, tree->io);
-    recordDataOffset = recordOffset + key->keyLength + sizeof(key->keyLength);
+//    recordDataOffset = recordOffset + key->keyLength + sizeof(key->keyLength);
     
     res = COMPARE(tree, key, searchKey);
     if(res == 0) {
@@ -1077,8 +1104,6 @@ static int doAddRecord(BTree* tree, uint32_t root, BTKey* searchKey, size_t leng
     }
     
     free(key);
-    
-    lastRecordDataOffset = recordDataOffset;
   }
    
   if(i != descriptor->numRecords) {
@@ -1144,6 +1169,7 @@ static int addRecord(BTree* tree, uint32_t root, BTKey* searchKey, size_t length
     
   freeSpace = getFreeSpace(root, descriptor, tree);
   
+  recordOffset = 0; // Jief : to silence warning. Not sure.
   lastRecordDataOffset = 0;
      
   for(i = 0; i < descriptor->numRecords; i++) {
@@ -1461,6 +1487,7 @@ static uint32_t removeRecord(BTree* tree, uint32_t root, BTKey* searchKey, int* 
   
   if(nodeToTraverse == 0) {
     nodeToTraverse = getNodeNumberFromPointerRecord(lastRecordDataOffset, tree->io);
+    recordOffset = lastRecordDataOffset; // Jief : to silence warning. Not sure.
   }
   
   if(i == descriptor->numRecords) {

@@ -102,7 +102,7 @@ static void cacheOffset(DMG* dmg, off_t location) {
 	}
 }
 
-static int dmgFileRead(io_func* io, off_t location, size_t size, void *buffer) {
+static size_t dmgFileRead(io_func* io, off_t location, size_t size, void *buffer) {
 	DMG* dmg;
 	size_t toRead;
 
