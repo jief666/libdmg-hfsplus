@@ -1,0 +1,8 @@
+echo "
+
+_FILE_OFFSET_BITS=64
+SPARSEBUNDLEFS_USE_EMBEDDED_CRYPTO
+FUSE_USE_VERSION=26
+
+" | awk '$0!=""{ printf " -D%s", $0; }'
+
