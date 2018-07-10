@@ -1,0 +1,1121 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9A06A5E120F51968006C88B8 /* libosxfuse.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD5220DCAFE5009BA858 /* libosxfuse.2.dylib */; };
+		9A2C20B420F2B3CF0068CFFD /* aes_modes.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209620F2B3CF0068CFFD /* aes_modes.c */; };
+		9A2C20B520F2B3CF0068CFFD /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209820F2B3CF0068CFFD /* aescrypt.c */; };
+		9A2C20B620F2B3CF0068CFFD /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209920F2B3CF0068CFFD /* aeskey.c */; };
+		9A2C20B720F2B3CF0068CFFD /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209B20F2B3CF0068CFFD /* aestab.c */; };
+		9A2C20B820F2B3CF0068CFFD /* aesxts.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209D20F2B3CF0068CFFD /* aesxts.c */; };
+		9A2C20B920F2B3CF0068CFFD /* Des.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20A220F2B3CF0068CFFD /* Des.c */; };
+		9A2C20BA20F2B3CF0068CFFD /* hmac_sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20A720F2B3CF0068CFFD /* hmac_sha1.c */; };
+		9A2C20BB20F2B3CF0068CFFD /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AB20F2B3CF0068CFFD /* sha1.c */; };
+		9A2C20BC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c */; };
+		9A2C20BD20F2B3CF0068CFFD /* TripleDes.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AF20F2B3CF0068CFFD /* TripleDes.c */; };
+		9A2C20BE20F2B3CF0068CFFD /* sparsebundlefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20B220F2B3CF0068CFFD /* sparsebundlefs.c */; };
+		9A2C20C920F2B8BC0068CFFD /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209820F2B3CF0068CFFD /* aescrypt.c */; };
+		9A2C20CE20F2B8BC0068CFFD /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209B20F2B3CF0068CFFD /* aestab.c */; };
+		9A2C20D020F2B8BC0068CFFD /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209920F2B3CF0068CFFD /* aeskey.c */; };
+		9A2C20D420F2B8BC0068CFFD /* hfslib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3B20DCA753009BA858 /* hfslib.c */; };
+		9A2C20D520F2B8BC0068CFFD /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AB20F2B3CF0068CFFD /* sha1.c */; };
+		9A2C20D620F2B8BC0068CFFD /* flatfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3720DCA753009BA858 /* flatfile.c */; };
+		9A2C20D720F2B8BC0068CFFD /* btree.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3220DCA753009BA858 /* btree.c */; };
+		9A2C20D820F2B8BC0068CFFD /* extents.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3520DCA753009BA858 /* extents.c */; };
+		9A2C20D920F2B8BC0068CFFD /* hfscompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3A20DCA753009BA858 /* hfscompress.c */; };
+		9A2C20DA20F2B8BC0068CFFD /* Des.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20A220F2B3CF0068CFFD /* Des.c */; };
+		9A2C20DB20F2B8BC0068CFFD /* libdmg-fuse.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD0D20DCA6AB009BA858 /* libdmg-fuse.c */; };
+		9A2C20DC20F2B8BC0068CFFD /* sparsebundlefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20B220F2B3CF0068CFFD /* sparsebundlefs.c */; };
+		9A2C20DD20F2B8BC0068CFFD /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3F20DCA753009BA858 /* utility.c */; };
+		9A2C20DE20F2B8BC0068CFFD /* sparsebundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3E20DCA753009BA858 /* sparsebundle.c */; };
+		9A2C20DF20F2B8BC0068CFFD /* aesxts.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209D20F2B3CF0068CFFD /* aesxts.c */; };
+		9A2C20E020F2B8BC0068CFFD /* PBKDF2_HMAC_SHA1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c */; };
+		9A2C20E120F2B8BC0068CFFD /* abstractfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD1120DCA6B6009BA858 /* abstractfile.c */; };
+		9A2C20E220F2B8BC0068CFFD /* aes_modes.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C209620F2B3CF0068CFFD /* aes_modes.c */; };
+		9A2C20E320F2B8BC0068CFFD /* xattr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD4120DCA753009BA858 /* xattr.c */; };
+		9A2C20E420F2B8BC0068CFFD /* volicon.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BDF20EA621F000E4EF7 /* volicon.c */; };
+		9A2C20E520F2B8BC0068CFFD /* volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD4020DCA753009BA858 /* volume.c */; };
+		9A2C20E620F2B8BC0068CFFD /* TripleDes.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20AF20F2B3CF0068CFFD /* TripleDes.c */; };
+		9A2C20E820F2B8BC0068CFFD /* hmac_sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C20A720F2B3CF0068CFFD /* hmac_sha1.c */; };
+		9A2C20E920F2B8BC0068CFFD /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3320DCA753009BA858 /* catalog.c */; };
+		9A2C20EA20F2B8BC0068CFFD /* rawfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3C20DCA753009BA858 /* rawfile.c */; };
+		9A2C20EB20F2B8BC0068CFFD /* fastunicodecompare.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3620DCA753009BA858 /* fastunicodecompare.c */; };
+		9A2C20ED20F2B8BC0068CFFD /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A931C1520EA635E000E4EF7 /* DiskArbitration.framework */; };
+		9A2C20EE20F2B8BC0068CFFD /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A931C1320EA633E000E4EF7 /* Carbon.framework */; };
+		9A2C20EF20F2B8BC0068CFFD /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA0555020E7AFF400312744 /* libxml2.tbd */; };
+		9A2C20F020F2B8BC0068CFFD /* libcrypto.1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD6F20DCB578009BA858 /* libcrypto.1.0.0.dylib */; };
+		9A2C20F120F2B8BC0068CFFD /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD6120DCB2A3009BA858 /* libz.1.dylib */; };
+		9A2C20F220F2B8BC0068CFFD /* libicuuc.61.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD5020DCAF13009BA858 /* libicuuc.61.1.dylib */; };
+		9A75CD0F20DCA6AB009BA858 /* libdmg-fuse.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD0D20DCA6AB009BA858 /* libdmg-fuse.c */; };
+		9A75CD5120DCAF13009BA858 /* libicuuc.61.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD5020DCAF13009BA858 /* libicuuc.61.1.dylib */; };
+		9A75CD5420DCB0D5009BA858 /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3320DCA753009BA858 /* catalog.c */; };
+		9A75CD5520DCB0D8009BA858 /* btree.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3220DCA753009BA858 /* btree.c */; };
+		9A75CD5620DCB0DB009BA858 /* extents.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3520DCA753009BA858 /* extents.c */; };
+		9A75CD5720DCB0E6009BA858 /* fastunicodecompare.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3620DCA753009BA858 /* fastunicodecompare.c */; };
+		9A75CD5820DCB0E6009BA858 /* flatfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3720DCA753009BA858 /* flatfile.c */; };
+		9A75CD5A20DCB0E6009BA858 /* hfscompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3A20DCA753009BA858 /* hfscompress.c */; };
+		9A75CD5B20DCB0E6009BA858 /* hfslib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3B20DCA753009BA858 /* hfslib.c */; };
+		9A75CD5C20DCB0E6009BA858 /* rawfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3C20DCA753009BA858 /* rawfile.c */; };
+		9A75CD5D20DCB0E6009BA858 /* sparsebundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3E20DCA753009BA858 /* sparsebundle.c */; };
+		9A75CD5E20DCB0E6009BA858 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD3F20DCA753009BA858 /* utility.c */; };
+		9A75CD5F20DCB0E6009BA858 /* volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD4020DCA753009BA858 /* volume.c */; };
+		9A75CD6020DCB0E6009BA858 /* xattr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD4120DCA753009BA858 /* xattr.c */; };
+		9A75CD6220DCB2A3009BA858 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD6120DCB2A3009BA858 /* libz.1.dylib */; };
+		9A75CD7020DCB579009BA858 /* libcrypto.1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A75CD6F20DCB578009BA858 /* libcrypto.1.0.0.dylib */; };
+		9A75CD7120DCB58E009BA858 /* abstractfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CD1120DCA6B6009BA858 /* abstractfile.c */; };
+		9A931BFE20EA6257000E4EF7 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BC920EA621F000E4EF7 /* buffer.c */; };
+		9A931BFF20EA6257000E4EF7 /* cuse_lowlevel.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BCA20EA621F000E4EF7 /* cuse_lowlevel.c */; };
+		9A931C0020EA6257000E4EF7 /* fuse.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BCB20EA621F000E4EF7 /* fuse.c */; };
+		9A931C0120EA6257000E4EF7 /* fuse_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BCC20EA621F000E4EF7 /* fuse_darwin.c */; };
+		9A931C0220EA6257000E4EF7 /* fuse_kern_chan.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BCF20EA621F000E4EF7 /* fuse_kern_chan.c */; };
+		9A931C0320EA6257000E4EF7 /* fuse_loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD020EA621F000E4EF7 /* fuse_loop.c */; };
+		9A931C0420EA6257000E4EF7 /* fuse_loop_mt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD120EA621F000E4EF7 /* fuse_loop_mt.c */; };
+		9A931C0520EA6257000E4EF7 /* fuse_lowlevel.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD220EA621F000E4EF7 /* fuse_lowlevel.c */; };
+		9A931C0620EA6257000E4EF7 /* fuse_mt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD420EA621F000E4EF7 /* fuse_mt.c */; };
+		9A931C0720EA6257000E4EF7 /* fuse_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD520EA621F000E4EF7 /* fuse_opt.c */; };
+		9A931C0820EA6257000E4EF7 /* fuse_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD620EA621F000E4EF7 /* fuse_session.c */; };
+		9A931C0920EA6257000E4EF7 /* fuse_signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD720EA621F000E4EF7 /* fuse_signals.c */; };
+		9A931C0A20EA6262000E4EF7 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BD920EA621F000E4EF7 /* helper.c */; };
+		9A931C0C20EA6262000E4EF7 /* subdir.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BDD20EA621F000E4EF7 /* subdir.c */; };
+		9A931C0D20EA6262000E4EF7 /* threadid.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BDE20EA621F000E4EF7 /* threadid.c */; };
+		9A931C0E20EA6262000E4EF7 /* volicon.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BDF20EA621F000E4EF7 /* volicon.c */; };
+		9A931C1220EA6262000E4EF7 /* ulockmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BE520EA621F000E4EF7 /* ulockmgr.c */; };
+		9A931C1420EA633F000E4EF7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A931C1320EA633E000E4EF7 /* Carbon.framework */; };
+		9A931C1620EA635E000E4EF7 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A931C1520EA635E000E4EF7 /* DiskArbitration.framework */; };
+		9A931C1720EA63B7000E4EF7 /* mount_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A931BE220EA621F000E4EF7 /* mount_darwin.c */; };
+		9AA0555120E7AFF400312744 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA0555020E7AFF400312744 /* libxml2.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9A2C20F320F2B8BC0068CFFD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		9A75CCFE20DCA458009BA858 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9A2C209120F2B3A00068CFFD /* libdmg-fuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libdmg-fuse.h"; sourceTree = "<group>"; };
+		9A2C209620F2B3CF0068CFFD /* aes_modes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_modes.c; sourceTree = "<group>"; };
+		9A2C209720F2B3CF0068CFFD /* aes_via_ace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
+		9A2C209820F2B3CF0068CFFD /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		9A2C209920F2B3CF0068CFFD /* aeskey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		9A2C209A20F2B3CF0068CFFD /* aesopt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		9A2C209B20F2B3CF0068CFFD /* aestab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		9A2C209C20F2B3CF0068CFFD /* aestab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		9A2C209D20F2B3CF0068CFFD /* aesxts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aesxts.c; sourceTree = "<group>"; };
+		9A2C209E20F2B3CF0068CFFD /* aesxts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesxts.h; sourceTree = "<group>"; };
+		9A2C209F20F2B3CF0068CFFD /* brg_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		9A2C20A020F2B3CF0068CFFD /* brg_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		9A2C20A120F2B3CF0068CFFD /* rijndael-aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "rijndael-aes.h"; sourceTree = "<group>"; };
+		9A2C20A220F2B3CF0068CFFD /* Des.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Des.c; sourceTree = "<group>"; };
+		9A2C20A320F2B3CF0068CFFD /* Des.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Des.h; sourceTree = "<group>"; };
+		9A2C20A620F2B3CF0068CFFD /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		9A2C20A720F2B3CF0068CFFD /* hmac_sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac_sha1.c; sourceTree = "<group>"; };
+		9A2C20A820F2B3CF0068CFFD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9A2C20AA20F2B3CF0068CFFD /* sha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha.h; sourceTree = "<group>"; };
+		9A2C20AB20F2B3CF0068CFFD /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		9A2C20AC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PBKDF2_HMAC_SHA1.c; sourceTree = "<group>"; };
+		9A2C20AD20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBKDF2_HMAC_SHA1.h; sourceTree = "<group>"; };
+		9A2C20AE20F2B3CF0068CFFD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9A2C20AF20F2B3CF0068CFFD /* TripleDes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TripleDes.c; sourceTree = "<group>"; };
+		9A2C20B020F2B3CF0068CFFD /* TripleDes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripleDes.h; sourceTree = "<group>"; };
+		9A2C20B220F2B3CF0068CFFD /* sparsebundlefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sparsebundlefs.c; sourceTree = "<group>"; };
+		9A2C20B320F2B3CF0068CFFD /* sparsebundlefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sparsebundlefs.h; sourceTree = "<group>"; };
+		9A2C20F720F2B8BC0068CFFD /* libdmg-hfsplus--jief--wip osxfuse in lib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libdmg-hfsplus--jief--wip osxfuse in lib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A75CD0020DCA458009BA858 /* libdmg-hfsplus--jief--wip */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libdmg-hfsplus--jief--wip"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A75CD0D20DCA6AB009BA858 /* libdmg-fuse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "libdmg-fuse.c"; sourceTree = "<group>"; };
+		9A75CD0E20DCA6AB009BA858 /* libdmg-fuse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "libdmg-fuse.h"; sourceTree = "<group>"; };
+		9A75CD1120DCA6B6009BA858 /* abstractfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = abstractfile.c; sourceTree = "<group>"; };
+		9A75CD1220DCA6B6009BA858 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		9A75CD3220DCA753009BA858 /* btree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = btree.c; sourceTree = "<group>"; };
+		9A75CD3320DCA753009BA858 /* catalog.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = catalog.c; sourceTree = "<group>"; };
+		9A75CD3420DCA753009BA858 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		9A75CD3520DCA753009BA858 /* extents.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extents.c; sourceTree = "<group>"; };
+		9A75CD3620DCA753009BA858 /* fastunicodecompare.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fastunicodecompare.c; sourceTree = "<group>"; };
+		9A75CD3720DCA753009BA858 /* flatfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = flatfile.c; sourceTree = "<group>"; };
+		9A75CD3920DCA753009BA858 /* hfs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hfs.c; sourceTree = "<group>"; };
+		9A75CD3A20DCA753009BA858 /* hfscompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hfscompress.c; sourceTree = "<group>"; };
+		9A75CD3B20DCA753009BA858 /* hfslib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hfslib.c; sourceTree = "<group>"; };
+		9A75CD3C20DCA753009BA858 /* rawfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rawfile.c; sourceTree = "<group>"; };
+		9A75CD3E20DCA753009BA858 /* sparsebundle.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sparsebundle.c; sourceTree = "<group>"; };
+		9A75CD3F20DCA753009BA858 /* utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
+		9A75CD4020DCA753009BA858 /* volume.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = volume.c; sourceTree = "<group>"; };
+		9A75CD4120DCA753009BA858 /* xattr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xattr.c; sourceTree = "<group>"; };
+		9A75CD4320DCAABE009BA858 /* abstractfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = abstractfile.h; sourceTree = "<group>"; };
+		9A75CD4420DCAABE009BA858 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		9A75CD4620DCAABE009BA858 /* adc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = adc.h; sourceTree = "<group>"; };
+		9A75CD4720DCAABE009BA858 /* dmg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dmg.h; sourceTree = "<group>"; };
+		9A75CD4820DCAABE009BA858 /* dmgfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dmgfile.h; sourceTree = "<group>"; };
+		9A75CD4920DCAABE009BA858 /* dmglib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dmglib.h; sourceTree = "<group>"; };
+		9A75CD4A20DCAABF009BA858 /* filevault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filevault.h; sourceTree = "<group>"; };
+		9A75CD4C20DCAABF009BA858 /* hfscompress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hfscompress.h; sourceTree = "<group>"; };
+		9A75CD4D20DCAABF009BA858 /* hfslib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hfslib.h; sourceTree = "<group>"; };
+		9A75CD4E20DCAABF009BA858 /* hfsplus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hfsplus.h; sourceTree = "<group>"; };
+		9A75CD5020DCAF13009BA858 /* libicuuc.61.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicuuc.61.1.dylib; path = ../../../../../../../usr/local/Cellar/icu4c/61.1/lib/libicuuc.61.1.dylib; sourceTree = "<group>"; };
+		9A75CD5220DCAFE5009BA858 /* libosxfuse.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosxfuse.2.dylib; path = ../../../../../../../usr/local/lib/libosxfuse.2.dylib; sourceTree = "<group>"; };
+		9A75CD6120DCB2A3009BA858 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
+		9A75CD6F20DCB578009BA858 /* libcrypto.1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.1.0.0.dylib; path = ../../../../../../../usr/local/Cellar/openssl/1.0.2o_1/lib/libcrypto.1.0.0.dylib; sourceTree = "<group>"; };
+		9A931B0620EA5F84000E4EF7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		9A931B0820EA60BA000E4EF7 /* libosxfuse--jief666--wip.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libosxfuse--jief666--wip.dylib"; path = "../../osxfuse--jief666--wip/Debug/libosxfuse--jief666--wip.dylib"; sourceTree = "<group>"; };
+		9A931B3220EA621E000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931B3320EA621E000E4EF7 /* .gitmodules */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitmodules; sourceTree = "<group>"; };
+		9A931B6520EA621E000E4EF7 /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
+		9A931B6720EA621E000E4EF7 /* fuse_ioctl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_ioctl.h; sourceTree = "<group>"; };
+		9A931B6820EA621E000E4EF7 /* fuse_mount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_mount.h; sourceTree = "<group>"; };
+		9A931B6920EA621E000E4EF7 /* fuse_param.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_param.h; sourceTree = "<group>"; };
+		9A931B6A20EA621E000E4EF7 /* fuse_preprocessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_preprocessor.h; sourceTree = "<group>"; };
+		9A931B6B20EA621E000E4EF7 /* fuse_version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_version.h; sourceTree = "<group>"; };
+		9A931B9B20EA621E000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931B9C20EA621E000E4EF7 /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
+		9A931B9D20EA621E000E4EF7 /* ChangeLog */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		9A931B9E20EA621E000E4EF7 /* configure.ac */ = {isa = PBXFileReference; lastKnownFileType = text; path = configure.ac; sourceTree = "<group>"; };
+		9A931B9F20EA621E000E4EF7 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		9A931BA020EA621E000E4EF7 /* COPYING.LIB */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING.LIB; sourceTree = "<group>"; };
+		9A931BA220EA621F000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931BA320EA621F000E4EF7 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
+		9A931BA420EA621F000E4EF7 /* fusermount.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = fusermount.1; sourceTree = "<group>"; };
+		9A931BA520EA621F000E4EF7 /* how-fuse-works */ = {isa = PBXFileReference; lastKnownFileType = text; path = "how-fuse-works"; sourceTree = "<group>"; };
+		9A931BA620EA621F000E4EF7 /* kernel.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = kernel.txt; sourceTree = "<group>"; };
+		9A931BA720EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BA820EA621F000E4EF7 /* mount.fuse.8 */ = {isa = PBXFileReference; lastKnownFileType = text; path = mount.fuse.8; sourceTree = "<group>"; };
+		9A931BA920EA621F000E4EF7 /* ulockmgr_server.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ulockmgr_server.1; sourceTree = "<group>"; };
+		9A931BAB20EA621F000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931BAC20EA621F000E4EF7 /* cusexmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cusexmp.c; sourceTree = "<group>"; };
+		9A931BAD20EA621F000E4EF7 /* fioc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fioc.c; sourceTree = "<group>"; };
+		9A931BAE20EA621F000E4EF7 /* fioc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fioc.h; sourceTree = "<group>"; };
+		9A931BAF20EA621F000E4EF7 /* fioclient.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fioclient.c; sourceTree = "<group>"; };
+		9A931BB020EA621F000E4EF7 /* fsel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fsel.c; sourceTree = "<group>"; };
+		9A931BB120EA621F000E4EF7 /* fselclient.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fselclient.c; sourceTree = "<group>"; };
+		9A931BB220EA621F000E4EF7 /* fusexmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fusexmp.c; sourceTree = "<group>"; };
+		9A931BB320EA621F000E4EF7 /* fusexmp_fh.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fusexmp_fh.c; sourceTree = "<group>"; };
+		9A931BB420EA621F000E4EF7 /* hello.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hello.c; sourceTree = "<group>"; };
+		9A931BB520EA621F000E4EF7 /* hello_ll.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hello_ll.c; sourceTree = "<group>"; };
+		9A931BB620EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BB720EA621F000E4EF7 /* null.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = null.c; sourceTree = "<group>"; };
+		9A931BB820EA621F000E4EF7 /* fuse.pc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = fuse.pc.in; sourceTree = "<group>"; };
+		9A931BBA20EA621F000E4EF7 /* cuse_lowlevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cuse_lowlevel.h; sourceTree = "<group>"; };
+		9A931BBB20EA621F000E4EF7 /* fuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse.h; sourceTree = "<group>"; };
+		9A931BBC20EA621F000E4EF7 /* fuse_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_common.h; sourceTree = "<group>"; };
+		9A931BBD20EA621F000E4EF7 /* fuse_common_compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_common_compat.h; sourceTree = "<group>"; };
+		9A931BBE20EA621F000E4EF7 /* fuse_compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_compat.h; sourceTree = "<group>"; };
+		9A931BBF20EA621F000E4EF7 /* fuse_darwin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_darwin.h; sourceTree = "<group>"; };
+		9A931BC020EA621F000E4EF7 /* fuse_kernel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_kernel.h; sourceTree = "<group>"; };
+		9A931BC120EA621F000E4EF7 /* fuse_lowlevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_lowlevel.h; sourceTree = "<group>"; };
+		9A931BC220EA621F000E4EF7 /* fuse_lowlevel_compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_lowlevel_compat.h; sourceTree = "<group>"; };
+		9A931BC320EA621F000E4EF7 /* fuse_opt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_opt.h; sourceTree = "<group>"; };
+		9A931BC420EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BC620EA621F000E4EF7 /* fuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse.h; sourceTree = "<group>"; };
+		9A931BC720EA621F000E4EF7 /* ulockmgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ulockmgr.h; sourceTree = "<group>"; };
+		9A931BC920EA621F000E4EF7 /* buffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		9A931BCA20EA621F000E4EF7 /* cuse_lowlevel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cuse_lowlevel.c; sourceTree = "<group>"; };
+		9A931BCB20EA621F000E4EF7 /* fuse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse.c; sourceTree = "<group>"; };
+		9A931BCC20EA621F000E4EF7 /* fuse_darwin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_darwin.c; sourceTree = "<group>"; };
+		9A931BCD20EA621F000E4EF7 /* fuse_darwin_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_darwin_private.h; sourceTree = "<group>"; };
+		9A931BCE20EA621F000E4EF7 /* fuse_i.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_i.h; sourceTree = "<group>"; };
+		9A931BCF20EA621F000E4EF7 /* fuse_kern_chan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_kern_chan.c; sourceTree = "<group>"; };
+		9A931BD020EA621F000E4EF7 /* fuse_loop.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_loop.c; sourceTree = "<group>"; };
+		9A931BD120EA621F000E4EF7 /* fuse_loop_mt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_loop_mt.c; sourceTree = "<group>"; };
+		9A931BD220EA621F000E4EF7 /* fuse_lowlevel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_lowlevel.c; sourceTree = "<group>"; };
+		9A931BD320EA621F000E4EF7 /* fuse_misc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fuse_misc.h; sourceTree = "<group>"; };
+		9A931BD420EA621F000E4EF7 /* fuse_mt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_mt.c; sourceTree = "<group>"; };
+		9A931BD520EA621F000E4EF7 /* fuse_opt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_opt.c; sourceTree = "<group>"; };
+		9A931BD620EA621F000E4EF7 /* fuse_session.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_session.c; sourceTree = "<group>"; };
+		9A931BD720EA621F000E4EF7 /* fuse_signals.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fuse_signals.c; sourceTree = "<group>"; };
+		9A931BD820EA621F000E4EF7 /* fuse_versionscript */ = {isa = PBXFileReference; lastKnownFileType = text; path = fuse_versionscript; sourceTree = "<group>"; };
+		9A931BD920EA621F000E4EF7 /* helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
+		9A931BDA20EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BDC20EA621F000E4EF7 /* iconv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iconv.c; sourceTree = "<group>"; };
+		9A931BDD20EA621F000E4EF7 /* subdir.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = subdir.c; sourceTree = "<group>"; };
+		9A931BDE20EA621F000E4EF7 /* threadid.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = threadid.c; sourceTree = "<group>"; };
+		9A931BDF20EA621F000E4EF7 /* volicon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = volicon.c; sourceTree = "<group>"; };
+		9A931BE020EA621F000E4EF7 /* mount.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mount.c; sourceTree = "<group>"; };
+		9A931BE120EA621F000E4EF7 /* mount_bsd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mount_bsd.c; sourceTree = "<group>"; };
+		9A931BE220EA621F000E4EF7 /* mount_darwin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mount_darwin.c; sourceTree = "<group>"; };
+		9A931BE320EA621F000E4EF7 /* mount_util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mount_util.c; sourceTree = "<group>"; };
+		9A931BE420EA621F000E4EF7 /* mount_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mount_util.h; sourceTree = "<group>"; };
+		9A931BE520EA621F000E4EF7 /* ulockmgr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ulockmgr.c; sourceTree = "<group>"; };
+		9A931BE620EA621F000E4EF7 /* makeconf.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = makeconf.sh; sourceTree = "<group>"; };
+		9A931BE720EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BE820EA621F000E4EF7 /* NEWS */ = {isa = PBXFileReference; lastKnownFileType = text; path = NEWS; sourceTree = "<group>"; };
+		9A931BE920EA621F000E4EF7 /* osxfuse.pc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = osxfuse.pc.in; sourceTree = "<group>"; };
+		9A931BEA20EA621F000E4EF7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9A931BEB20EA621F000E4EF7 /* README.NFS */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.NFS; sourceTree = "<group>"; };
+		9A931BED20EA621F000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931BEE20EA621F000E4EF7 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		9A931BEF20EA621F000E4EF7 /* stracedecode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stracedecode.c; sourceTree = "<group>"; };
+		9A931BF020EA621F000E4EF7 /* test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
+		9A931BF220EA621F000E4EF7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9A931BF320EA621F000E4EF7 /* fusermount.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fusermount.c; sourceTree = "<group>"; };
+		9A931BF420EA621F000E4EF7 /* init_script */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = init_script; sourceTree = "<group>"; };
+		9A931BF520EA621F000E4EF7 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9A931BF620EA621F000E4EF7 /* mount.fuse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mount.fuse.c; sourceTree = "<group>"; };
+		9A931BF720EA621F000E4EF7 /* udev.rules */ = {isa = PBXFileReference; lastKnownFileType = text; path = udev.rules; sourceTree = "<group>"; };
+		9A931BF820EA621F000E4EF7 /* ulockmgr_server.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ulockmgr_server.c; sourceTree = "<group>"; };
+		9A931BFA20EA621F000E4EF7 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		9A931BFB20EA621F000E4EF7 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		9A931BFC20EA621F000E4EF7 /* osxfuse_buildlog.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = osxfuse_buildlog.txt; sourceTree = "<group>"; };
+		9A931BFD20EA621F000E4EF7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9A931C1320EA633E000E4EF7 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		9A931C1520EA635E000E4EF7 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = ../../../../../../System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<group>"; };
+		9AA0555020E7AFF400312744 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		9AB5C47420DCF02300F18301 /* libosxfuse.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosxfuse.2.dylib; path = ../../osxfuse/build/library/Source/lib/.libs/libosxfuse.2.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9A2C20EC20F2B8BC0068CFFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A06A5E120F51968006C88B8 /* libosxfuse.2.dylib in Frameworks */,
+				9A2C20ED20F2B8BC0068CFFD /* DiskArbitration.framework in Frameworks */,
+				9A2C20EE20F2B8BC0068CFFD /* Carbon.framework in Frameworks */,
+				9A2C20EF20F2B8BC0068CFFD /* libxml2.tbd in Frameworks */,
+				9A2C20F020F2B8BC0068CFFD /* libcrypto.1.0.0.dylib in Frameworks */,
+				9A2C20F120F2B8BC0068CFFD /* libz.1.dylib in Frameworks */,
+				9A2C20F220F2B8BC0068CFFD /* libicuuc.61.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A75CCFD20DCA458009BA858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A931C1620EA635E000E4EF7 /* DiskArbitration.framework in Frameworks */,
+				9A931C1420EA633F000E4EF7 /* Carbon.framework in Frameworks */,
+				9AA0555120E7AFF400312744 /* libxml2.tbd in Frameworks */,
+				9A75CD7020DCB579009BA858 /* libcrypto.1.0.0.dylib in Frameworks */,
+				9A75CD6220DCB2A3009BA858 /* libz.1.dylib in Frameworks */,
+				9A75CD5120DCAF13009BA858 /* libicuuc.61.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A2C209220F2B3CF0068CFFD /* sparsebundlefs-lib */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C209320F2B3CF0068CFFD /* src */,
+			);
+			name = "sparsebundlefs-lib";
+			path = "../sparsebundlefs-lib";
+			sourceTree = "<group>";
+		};
+		9A2C209320F2B3CF0068CFFD /* src */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C209420F2B3CF0068CFFD /* crypto */,
+				9A2C20B120F2B3CF0068CFFD /* sparsebundlefs */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		9A2C209420F2B3CF0068CFFD /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C209520F2B3CF0068CFFD /* aes-rijndael */,
+				9A2C20A220F2B3CF0068CFFD /* Des.c */,
+				9A2C20A320F2B3CF0068CFFD /* Des.h */,
+				9A2C20A420F2B3CF0068CFFD /* hmac-sha1 */,
+				9A2C20AC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c */,
+				9A2C20AD20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.h */,
+				9A2C20AE20F2B3CF0068CFFD /* README.md */,
+				9A2C20AF20F2B3CF0068CFFD /* TripleDes.c */,
+				9A2C20B020F2B3CF0068CFFD /* TripleDes.h */,
+			);
+			path = crypto;
+			sourceTree = "<group>";
+		};
+		9A2C209520F2B3CF0068CFFD /* aes-rijndael */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C209620F2B3CF0068CFFD /* aes_modes.c */,
+				9A2C209720F2B3CF0068CFFD /* aes_via_ace.h */,
+				9A2C209820F2B3CF0068CFFD /* aescrypt.c */,
+				9A2C209920F2B3CF0068CFFD /* aeskey.c */,
+				9A2C209A20F2B3CF0068CFFD /* aesopt.h */,
+				9A2C209B20F2B3CF0068CFFD /* aestab.c */,
+				9A2C209C20F2B3CF0068CFFD /* aestab.h */,
+				9A2C209D20F2B3CF0068CFFD /* aesxts.c */,
+				9A2C209E20F2B3CF0068CFFD /* aesxts.h */,
+				9A2C209F20F2B3CF0068CFFD /* brg_endian.h */,
+				9A2C20A020F2B3CF0068CFFD /* brg_types.h */,
+				9A2C20A120F2B3CF0068CFFD /* rijndael-aes.h */,
+			);
+			path = "aes-rijndael";
+			sourceTree = "<group>";
+		};
+		9A2C20A420F2B3CF0068CFFD /* hmac-sha1 */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C20A520F2B3CF0068CFFD /* hmac */,
+				9A2C20A820F2B3CF0068CFFD /* README.md */,
+				9A2C20A920F2B3CF0068CFFD /* sha */,
+			);
+			path = "hmac-sha1";
+			sourceTree = "<group>";
+		};
+		9A2C20A520F2B3CF0068CFFD /* hmac */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C20A620F2B3CF0068CFFD /* hmac.h */,
+				9A2C20A720F2B3CF0068CFFD /* hmac_sha1.c */,
+			);
+			path = hmac;
+			sourceTree = "<group>";
+		};
+		9A2C20A920F2B3CF0068CFFD /* sha */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C20AA20F2B3CF0068CFFD /* sha.h */,
+				9A2C20AB20F2B3CF0068CFFD /* sha1.c */,
+			);
+			path = sha;
+			sourceTree = "<group>";
+		};
+		9A2C20B120F2B3CF0068CFFD /* sparsebundlefs */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C20B220F2B3CF0068CFFD /* sparsebundlefs.c */,
+				9A2C20B320F2B3CF0068CFFD /* sparsebundlefs.h */,
+			);
+			path = sparsebundlefs;
+			sourceTree = "<group>";
+		};
+		9A75CCF720DCA458009BA858 = {
+			isa = PBXGroup;
+			children = (
+				9A2C209220F2B3CF0068CFFD /* sparsebundlefs-lib */,
+				9A931B2F20EA621E000E4EF7 /* osxfuse--jief666--wip */,
+				9A75CD4220DCAABE009BA858 /* includes */,
+				9A75CD3120DCA753009BA858 /* hfs */,
+				9A75CD1020DCA6B6009BA858 /* common */,
+				9A75CD0C20DCA6AB009BA858 /* fuse */,
+				9A75CD0120DCA458009BA858 /* Products */,
+				9A75CD4F20DCAF13009BA858 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9A75CD0120DCA458009BA858 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD0020DCA458009BA858 /* libdmg-hfsplus--jief--wip */,
+				9A2C20F720F2B8BC0068CFFD /* libdmg-hfsplus--jief--wip osxfuse in lib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A75CD0C20DCA6AB009BA858 /* fuse */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD0D20DCA6AB009BA858 /* libdmg-fuse.c */,
+				9A75CD0E20DCA6AB009BA858 /* libdmg-fuse.h */,
+			);
+			name = fuse;
+			path = ../fuse;
+			sourceTree = "<group>";
+		};
+		9A75CD1020DCA6B6009BA858 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD1120DCA6B6009BA858 /* abstractfile.c */,
+				9A75CD1220DCA6B6009BA858 /* CMakeLists.txt */,
+			);
+			name = common;
+			path = ../common;
+			sourceTree = "<group>";
+		};
+		9A75CD3120DCA753009BA858 /* hfs */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD3220DCA753009BA858 /* btree.c */,
+				9A75CD3320DCA753009BA858 /* catalog.c */,
+				9A75CD3420DCA753009BA858 /* CMakeLists.txt */,
+				9A75CD3520DCA753009BA858 /* extents.c */,
+				9A75CD3620DCA753009BA858 /* fastunicodecompare.c */,
+				9A75CD3720DCA753009BA858 /* flatfile.c */,
+				9A75CD3920DCA753009BA858 /* hfs.c */,
+				9A75CD3A20DCA753009BA858 /* hfscompress.c */,
+				9A75CD3B20DCA753009BA858 /* hfslib.c */,
+				9A75CD3C20DCA753009BA858 /* rawfile.c */,
+				9A75CD3E20DCA753009BA858 /* sparsebundle.c */,
+				9A75CD3F20DCA753009BA858 /* utility.c */,
+				9A75CD4020DCA753009BA858 /* volume.c */,
+				9A75CD4120DCA753009BA858 /* xattr.c */,
+			);
+			name = hfs;
+			path = ../hfs;
+			sourceTree = "<group>";
+		};
+		9A75CD4220DCAABE009BA858 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD4320DCAABE009BA858 /* abstractfile.h */,
+				9A75CD4420DCAABE009BA858 /* common.h */,
+				9A75CD4520DCAABE009BA858 /* dmg */,
+				9A75CD4B20DCAABF009BA858 /* hfs */,
+			);
+			name = includes;
+			path = ../includes;
+			sourceTree = "<group>";
+		};
+		9A75CD4520DCAABE009BA858 /* dmg */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD4620DCAABE009BA858 /* adc.h */,
+				9A75CD4720DCAABE009BA858 /* dmg.h */,
+				9A75CD4820DCAABE009BA858 /* dmgfile.h */,
+				9A75CD4920DCAABE009BA858 /* dmglib.h */,
+				9A75CD4A20DCAABF009BA858 /* filevault.h */,
+			);
+			path = dmg;
+			sourceTree = "<group>";
+		};
+		9A75CD4B20DCAABF009BA858 /* hfs */ = {
+			isa = PBXGroup;
+			children = (
+				9A75CD4C20DCAABF009BA858 /* hfscompress.h */,
+				9A75CD4D20DCAABF009BA858 /* hfslib.h */,
+				9A75CD4E20DCAABF009BA858 /* hfsplus.h */,
+			);
+			path = hfs;
+			sourceTree = "<group>";
+		};
+		9A75CD4F20DCAF13009BA858 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A931C1520EA635E000E4EF7 /* DiskArbitration.framework */,
+				9A931C1320EA633E000E4EF7 /* Carbon.framework */,
+				9A931B0820EA60BA000E4EF7 /* libosxfuse--jief666--wip.dylib */,
+				9A931B0620EA5F84000E4EF7 /* CoreFoundation.framework */,
+				9AA0555020E7AFF400312744 /* libxml2.tbd */,
+				9AB5C47420DCF02300F18301 /* libosxfuse.2.dylib */,
+				9A75CD6F20DCB578009BA858 /* libcrypto.1.0.0.dylib */,
+				9A75CD6120DCB2A3009BA858 /* libz.1.dylib */,
+				9A75CD5220DCAFE5009BA858 /* libosxfuse.2.dylib */,
+				9A75CD5020DCAF13009BA858 /* libicuuc.61.1.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A931B2F20EA621E000E4EF7 /* osxfuse--jief666--wip */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C209120F2B3A00068CFFD /* libdmg-fuse.h */,
+				9A931B3220EA621E000E4EF7 /* .gitignore */,
+				9A931B3320EA621E000E4EF7 /* .gitmodules */,
+				9A931B6520EA621E000E4EF7 /* build.sh */,
+				9A931B6620EA621E000E4EF7 /* common */,
+				9A931B9A20EA621E000E4EF7 /* fuse */,
+				9A931BF920EA621F000E4EF7 /* jief */,
+				9A931BFB20EA621F000E4EF7 /* LICENSE.txt */,
+				9A931BFC20EA621F000E4EF7 /* osxfuse_buildlog.txt */,
+				9A931BFD20EA621F000E4EF7 /* README.md */,
+			);
+			name = "osxfuse--jief666--wip";
+			path = "../../osxfuse--jief666--wip";
+			sourceTree = "<group>";
+		};
+		9A931B6620EA621E000E4EF7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				9A931B6720EA621E000E4EF7 /* fuse_ioctl.h */,
+				9A931B6820EA621E000E4EF7 /* fuse_mount.h */,
+				9A931B6920EA621E000E4EF7 /* fuse_param.h */,
+				9A931B6A20EA621E000E4EF7 /* fuse_preprocessor.h */,
+				9A931B6B20EA621E000E4EF7 /* fuse_version.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		9A931B9A20EA621E000E4EF7 /* fuse */ = {
+			isa = PBXGroup;
+			children = (
+				9A931B9B20EA621E000E4EF7 /* .gitignore */,
+				9A931B9C20EA621E000E4EF7 /* AUTHORS */,
+				9A931B9D20EA621E000E4EF7 /* ChangeLog */,
+				9A931B9E20EA621E000E4EF7 /* configure.ac */,
+				9A931B9F20EA621E000E4EF7 /* COPYING */,
+				9A931BA020EA621E000E4EF7 /* COPYING.LIB */,
+				9A931BA120EA621F000E4EF7 /* doc */,
+				9A931BAA20EA621F000E4EF7 /* example */,
+				9A931BB820EA621F000E4EF7 /* fuse.pc.in */,
+				9A931BB920EA621F000E4EF7 /* include */,
+				9A931BC820EA621F000E4EF7 /* lib */,
+				9A931BE620EA621F000E4EF7 /* makeconf.sh */,
+				9A931BE720EA621F000E4EF7 /* Makefile.am */,
+				9A931BE820EA621F000E4EF7 /* NEWS */,
+				9A931BE920EA621F000E4EF7 /* osxfuse.pc.in */,
+				9A931BEA20EA621F000E4EF7 /* README.md */,
+				9A931BEB20EA621F000E4EF7 /* README.NFS */,
+				9A931BEC20EA621F000E4EF7 /* test */,
+				9A931BF120EA621F000E4EF7 /* util */,
+			);
+			path = fuse;
+			sourceTree = "<group>";
+		};
+		9A931BA120EA621F000E4EF7 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BA220EA621F000E4EF7 /* .gitignore */,
+				9A931BA320EA621F000E4EF7 /* Doxyfile */,
+				9A931BA420EA621F000E4EF7 /* fusermount.1 */,
+				9A931BA520EA621F000E4EF7 /* how-fuse-works */,
+				9A931BA620EA621F000E4EF7 /* kernel.txt */,
+				9A931BA720EA621F000E4EF7 /* Makefile.am */,
+				9A931BA820EA621F000E4EF7 /* mount.fuse.8 */,
+				9A931BA920EA621F000E4EF7 /* ulockmgr_server.1 */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+		9A931BAA20EA621F000E4EF7 /* example */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BAB20EA621F000E4EF7 /* .gitignore */,
+				9A931BAC20EA621F000E4EF7 /* cusexmp.c */,
+				9A931BAD20EA621F000E4EF7 /* fioc.c */,
+				9A931BAE20EA621F000E4EF7 /* fioc.h */,
+				9A931BAF20EA621F000E4EF7 /* fioclient.c */,
+				9A931BB020EA621F000E4EF7 /* fsel.c */,
+				9A931BB120EA621F000E4EF7 /* fselclient.c */,
+				9A931BB220EA621F000E4EF7 /* fusexmp.c */,
+				9A931BB320EA621F000E4EF7 /* fusexmp_fh.c */,
+				9A931BB420EA621F000E4EF7 /* hello.c */,
+				9A931BB520EA621F000E4EF7 /* hello_ll.c */,
+				9A931BB620EA621F000E4EF7 /* Makefile.am */,
+				9A931BB720EA621F000E4EF7 /* null.c */,
+			);
+			path = example;
+			sourceTree = "<group>";
+		};
+		9A931BB920EA621F000E4EF7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BBA20EA621F000E4EF7 /* cuse_lowlevel.h */,
+				9A931BBB20EA621F000E4EF7 /* fuse.h */,
+				9A931BBC20EA621F000E4EF7 /* fuse_common.h */,
+				9A931BBD20EA621F000E4EF7 /* fuse_common_compat.h */,
+				9A931BBE20EA621F000E4EF7 /* fuse_compat.h */,
+				9A931BBF20EA621F000E4EF7 /* fuse_darwin.h */,
+				9A931BC020EA621F000E4EF7 /* fuse_kernel.h */,
+				9A931BC120EA621F000E4EF7 /* fuse_lowlevel.h */,
+				9A931BC220EA621F000E4EF7 /* fuse_lowlevel_compat.h */,
+				9A931BC320EA621F000E4EF7 /* fuse_opt.h */,
+				9A931BC420EA621F000E4EF7 /* Makefile.am */,
+				9A931BC520EA621F000E4EF7 /* old */,
+				9A931BC720EA621F000E4EF7 /* ulockmgr.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		9A931BC520EA621F000E4EF7 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BC620EA621F000E4EF7 /* fuse.h */,
+			);
+			path = old;
+			sourceTree = "<group>";
+		};
+		9A931BC820EA621F000E4EF7 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BC920EA621F000E4EF7 /* buffer.c */,
+				9A931BCA20EA621F000E4EF7 /* cuse_lowlevel.c */,
+				9A931BCB20EA621F000E4EF7 /* fuse.c */,
+				9A931BCC20EA621F000E4EF7 /* fuse_darwin.c */,
+				9A931BCD20EA621F000E4EF7 /* fuse_darwin_private.h */,
+				9A931BCE20EA621F000E4EF7 /* fuse_i.h */,
+				9A931BCF20EA621F000E4EF7 /* fuse_kern_chan.c */,
+				9A931BD020EA621F000E4EF7 /* fuse_loop.c */,
+				9A931BD120EA621F000E4EF7 /* fuse_loop_mt.c */,
+				9A931BD220EA621F000E4EF7 /* fuse_lowlevel.c */,
+				9A931BD320EA621F000E4EF7 /* fuse_misc.h */,
+				9A931BD420EA621F000E4EF7 /* fuse_mt.c */,
+				9A931BD520EA621F000E4EF7 /* fuse_opt.c */,
+				9A931BD620EA621F000E4EF7 /* fuse_session.c */,
+				9A931BD720EA621F000E4EF7 /* fuse_signals.c */,
+				9A931BD820EA621F000E4EF7 /* fuse_versionscript */,
+				9A931BD920EA621F000E4EF7 /* helper.c */,
+				9A931BDA20EA621F000E4EF7 /* Makefile.am */,
+				9A931BDB20EA621F000E4EF7 /* modules */,
+				9A931BE020EA621F000E4EF7 /* mount.c */,
+				9A931BE120EA621F000E4EF7 /* mount_bsd.c */,
+				9A931BE220EA621F000E4EF7 /* mount_darwin.c */,
+				9A931BE320EA621F000E4EF7 /* mount_util.c */,
+				9A931BE420EA621F000E4EF7 /* mount_util.h */,
+				9A931BE520EA621F000E4EF7 /* ulockmgr.c */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		9A931BDB20EA621F000E4EF7 /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BDC20EA621F000E4EF7 /* iconv.c */,
+				9A931BDD20EA621F000E4EF7 /* subdir.c */,
+				9A931BDE20EA621F000E4EF7 /* threadid.c */,
+				9A931BDF20EA621F000E4EF7 /* volicon.c */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		9A931BEC20EA621F000E4EF7 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BED20EA621F000E4EF7 /* .gitignore */,
+				9A931BEE20EA621F000E4EF7 /* Makefile */,
+				9A931BEF20EA621F000E4EF7 /* stracedecode.c */,
+				9A931BF020EA621F000E4EF7 /* test.c */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		9A931BF120EA621F000E4EF7 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BF220EA621F000E4EF7 /* .gitignore */,
+				9A931BF320EA621F000E4EF7 /* fusermount.c */,
+				9A931BF420EA621F000E4EF7 /* init_script */,
+				9A931BF520EA621F000E4EF7 /* Makefile.am */,
+				9A931BF620EA621F000E4EF7 /* mount.fuse.c */,
+				9A931BF720EA621F000E4EF7 /* udev.rules */,
+				9A931BF820EA621F000E4EF7 /* ulockmgr_server.c */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		9A931BF920EA621F000E4EF7 /* jief */ = {
+			isa = PBXGroup;
+			children = (
+				9A931BFA20EA621F000E4EF7 /* config.h */,
+			);
+			path = jief;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9A2C20BF20F2B8BC0068CFFD /* libdmg-hfsplus--jief--wip osxfuse in lib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A2C20F420F2B8BC0068CFFD /* Build configuration list for PBXNativeTarget "libdmg-hfsplus--jief--wip osxfuse in lib" */;
+			buildPhases = (
+				9A2C20C020F2B8BC0068CFFD /* Sources */,
+				9A2C20EC20F2B8BC0068CFFD /* Frameworks */,
+				9A2C20F320F2B8BC0068CFFD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libdmg-hfsplus--jief--wip osxfuse in lib";
+			productName = "libdmg-hfsplus--jief--fuse";
+			productReference = 9A2C20F720F2B8BC0068CFFD /* libdmg-hfsplus--jief--wip osxfuse in lib */;
+			productType = "com.apple.product-type.tool";
+		};
+		9A75CCFF20DCA458009BA858 /* libdmg-hfsplus--jief--wip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A75CD0720DCA458009BA858 /* Build configuration list for PBXNativeTarget "libdmg-hfsplus--jief--wip" */;
+			buildPhases = (
+				9A75CCFC20DCA458009BA858 /* Sources */,
+				9A75CCFD20DCA458009BA858 /* Frameworks */,
+				9A75CCFE20DCA458009BA858 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libdmg-hfsplus--jief--wip";
+			productName = "libdmg-hfsplus--jief--fuse";
+			productReference = 9A75CD0020DCA458009BA858 /* libdmg-hfsplus--jief--wip */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9A75CCF820DCA458009BA858 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "jf-luce";
+				TargetAttributes = {
+					9A75CCFF20DCA458009BA858 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = 9A75CCFB20DCA458009BA858 /* Build configuration list for PBXProject "libdmg-hfsplus--jief--wip" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9A75CCF720DCA458009BA858;
+			productRefGroup = 9A75CD0120DCA458009BA858 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9A75CCFF20DCA458009BA858 /* libdmg-hfsplus--jief--wip */,
+				9A2C20BF20F2B8BC0068CFFD /* libdmg-hfsplus--jief--wip osxfuse in lib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A2C20C020F2B8BC0068CFFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A2C20C920F2B8BC0068CFFD /* aescrypt.c in Sources */,
+				9A2C20CE20F2B8BC0068CFFD /* aestab.c in Sources */,
+				9A2C20D020F2B8BC0068CFFD /* aeskey.c in Sources */,
+				9A2C20E820F2B8BC0068CFFD /* hmac_sha1.c in Sources */,
+				9A2C20DC20F2B8BC0068CFFD /* sparsebundlefs.c in Sources */,
+				9A2C20DF20F2B8BC0068CFFD /* aesxts.c in Sources */,
+				9A2C20D520F2B8BC0068CFFD /* sha1.c in Sources */,
+				9A2C20E220F2B8BC0068CFFD /* aes_modes.c in Sources */,
+				9A2C20E020F2B8BC0068CFFD /* PBKDF2_HMAC_SHA1.c in Sources */,
+				9A2C20D420F2B8BC0068CFFD /* hfslib.c in Sources */,
+				9A2C20D920F2B8BC0068CFFD /* hfscompress.c in Sources */,
+				9A2C20DD20F2B8BC0068CFFD /* utility.c in Sources */,
+				9A2C20DE20F2B8BC0068CFFD /* sparsebundle.c in Sources */,
+				9A2C20D620F2B8BC0068CFFD /* flatfile.c in Sources */,
+				9A2C20D720F2B8BC0068CFFD /* btree.c in Sources */,
+				9A2C20D820F2B8BC0068CFFD /* extents.c in Sources */,
+				9A2C20DA20F2B8BC0068CFFD /* Des.c in Sources */,
+				9A2C20DB20F2B8BC0068CFFD /* libdmg-fuse.c in Sources */,
+				9A2C20E120F2B8BC0068CFFD /* abstractfile.c in Sources */,
+				9A2C20E320F2B8BC0068CFFD /* xattr.c in Sources */,
+				9A2C20E420F2B8BC0068CFFD /* volicon.c in Sources */,
+				9A2C20E520F2B8BC0068CFFD /* volume.c in Sources */,
+				9A2C20E620F2B8BC0068CFFD /* TripleDes.c in Sources */,
+				9A2C20E920F2B8BC0068CFFD /* catalog.c in Sources */,
+				9A2C20EA20F2B8BC0068CFFD /* rawfile.c in Sources */,
+				9A2C20EB20F2B8BC0068CFFD /* fastunicodecompare.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A75CCFC20DCA458009BA858 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A931C0020EA6257000E4EF7 /* fuse.c in Sources */,
+				9A931BFE20EA6257000E4EF7 /* buffer.c in Sources */,
+				9A931C0620EA6257000E4EF7 /* fuse_mt.c in Sources */,
+				9A931C0120EA6257000E4EF7 /* fuse_darwin.c in Sources */,
+				9A931C0820EA6257000E4EF7 /* fuse_session.c in Sources */,
+				9A931C1720EA63B7000E4EF7 /* mount_darwin.c in Sources */,
+				9A931C0720EA6257000E4EF7 /* fuse_opt.c in Sources */,
+				9A931C0A20EA6262000E4EF7 /* helper.c in Sources */,
+				9A2C20B520F2B3CF0068CFFD /* aescrypt.c in Sources */,
+				9A931BFF20EA6257000E4EF7 /* cuse_lowlevel.c in Sources */,
+				9A931C1220EA6262000E4EF7 /* ulockmgr.c in Sources */,
+				9A931C0420EA6257000E4EF7 /* fuse_loop_mt.c in Sources */,
+				9A931C0920EA6257000E4EF7 /* fuse_signals.c in Sources */,
+				9A2C20B720F2B3CF0068CFFD /* aestab.c in Sources */,
+				9A931C0520EA6257000E4EF7 /* fuse_lowlevel.c in Sources */,
+				9A2C20B620F2B3CF0068CFFD /* aeskey.c in Sources */,
+				9A931C0220EA6257000E4EF7 /* fuse_kern_chan.c in Sources */,
+				9A931C0320EA6257000E4EF7 /* fuse_loop.c in Sources */,
+				9A931C0C20EA6262000E4EF7 /* subdir.c in Sources */,
+				9A75CD5B20DCB0E6009BA858 /* hfslib.c in Sources */,
+				9A2C20BB20F2B3CF0068CFFD /* sha1.c in Sources */,
+				9A75CD5820DCB0E6009BA858 /* flatfile.c in Sources */,
+				9A75CD5520DCB0D8009BA858 /* btree.c in Sources */,
+				9A75CD5620DCB0DB009BA858 /* extents.c in Sources */,
+				9A75CD5A20DCB0E6009BA858 /* hfscompress.c in Sources */,
+				9A2C20B920F2B3CF0068CFFD /* Des.c in Sources */,
+				9A75CD0F20DCA6AB009BA858 /* libdmg-fuse.c in Sources */,
+				9A2C20BE20F2B3CF0068CFFD /* sparsebundlefs.c in Sources */,
+				9A75CD5E20DCB0E6009BA858 /* utility.c in Sources */,
+				9A75CD5D20DCB0E6009BA858 /* sparsebundle.c in Sources */,
+				9A2C20B820F2B3CF0068CFFD /* aesxts.c in Sources */,
+				9A2C20BC20F2B3CF0068CFFD /* PBKDF2_HMAC_SHA1.c in Sources */,
+				9A75CD7120DCB58E009BA858 /* abstractfile.c in Sources */,
+				9A2C20B420F2B3CF0068CFFD /* aes_modes.c in Sources */,
+				9A75CD6020DCB0E6009BA858 /* xattr.c in Sources */,
+				9A931C0E20EA6262000E4EF7 /* volicon.c in Sources */,
+				9A75CD5F20DCB0E6009BA858 /* volume.c in Sources */,
+				9A2C20BD20F2B3CF0068CFFD /* TripleDes.c in Sources */,
+				9A931C0D20EA6262000E4EF7 /* threadid.c in Sources */,
+				9A2C20BA20F2B3CF0068CFFD /* hmac_sha1.c in Sources */,
+				9A75CD5420DCB0D5009BA858 /* catalog.c in Sources */,
+				9A75CD5C20DCB0E6009BA858 /* rawfile.c in Sources */,
+				9A75CD5720DCB0E6009BA858 /* fastunicodecompare.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9A2C20F520F2B8BC0068CFFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"_FILE_OFFSET_BITS=64",
+					"FUSE_USE_VERSION=26",
+					_DARWIN_USE_64_BIT_INODE,
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/include,
+					/usr/include/libxml2,
+					/usr/local/opt/openssl/include,
+					/usr/local/include/osxfuse,
+					"$PROJECT_DIR/../../sparsebundlefs-lib--jief666--wip/src/sparsebundlefs",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/lib,
+					/usr/local/Cellar/openssl/1.0.2o_1/lib,
+					/usr/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9A2C20F620F2B8BC0068CFFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_FILE_OFFSET_BITS=64",
+					"FUSE_USE_VERSION=26",
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/include,
+					/usr/include/libxml2,
+					/usr/local/opt/openssl/include,
+					/usr/local/include/osxfuse,
+					"$PROJECT_DIR/../../sparsebundlefs-lib--jief666--wip/src/sparsebundlefs",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/lib,
+					/usr/local/Cellar/openssl/1.0.2o_1/lib,
+					/usr/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9A75CD0520DCA458009BA858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9A75CD0620DCA458009BA858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9A75CD0820DCA458009BA858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"_FILE_OFFSET_BITS=64",
+					"FUSE_USE_VERSION=26",
+					_DARWIN_USE_64_BIT_INODE,
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/include,
+					/usr/include/libxml2,
+					/usr/local/opt/openssl/include,
+					"$PROJECT_DIR/../../sparsebundlefs-lib--jief666--wip/src/sparsebundlefs",
+					"$PROJECT_DIR/../../osxfuse--jief666--wip/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/lib,
+					/usr/local/Cellar/openssl/1.0.2o_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9A75CD0920DCA458009BA858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_FILE_OFFSET_BITS=64",
+					"FUSE_USE_VERSION=26",
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/include,
+					/usr/include/libxml2,
+					/usr/local/opt/openssl/include,
+					"$PROJECT_DIR/../../sparsebundlefs-lib--jief666--wip/src/sparsebundlefs",
+					"$PROJECT_DIR/../../osxfuse--jief666--wip/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/icu4c/61.1/lib,
+					/usr/local/Cellar/openssl/1.0.2o_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9A2C20F420F2B8BC0068CFFD /* Build configuration list for PBXNativeTarget "libdmg-hfsplus--jief--wip osxfuse in lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A2C20F520F2B8BC0068CFFD /* Debug */,
+				9A2C20F620F2B8BC0068CFFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A75CCFB20DCA458009BA858 /* Build configuration list for PBXProject "libdmg-hfsplus--jief--wip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A75CD0520DCA458009BA858 /* Debug */,
+				9A75CD0620DCA458009BA858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A75CD0720DCA458009BA858 /* Build configuration list for PBXNativeTarget "libdmg-hfsplus--jief--wip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A75CD0820DCA458009BA858 /* Debug */,
+				9A75CD0920DCA458009BA858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9A75CCF820DCA458009BA858 /* Project object */;
+}
