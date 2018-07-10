@@ -1,3 +1,22 @@
+Jief
+====
+Thanks Planetbeing for the original project.
+
+This is my fork from Planetbeing version. I wanted to make it work on linux 32 bits large file support.
+This fork is my work in progress, so I commit all sort of files (eclipse files, test files, scripts).
+It's probably not the fork you wanted to clone...
+I've submitted fixe, so check original repo from Planetbeing.
+
+Currently, everything seems to work. I can rsync between an image mounted
+by the Mac and the same one mounted by this project without any difference.
+(Fuse force a generic com.apple.FinderInfo for root folder if there isn't one.
+So you might have a difference with xattr for root folder only)
+I'm using rsync 3.1.2, patch to handle creation time. I use option -X for extended attributes, --crtimes for creation times
+and -c to read the file content.
+When Planetbeing will answer, if he's interested, I'll submit clean patches to improve his master branch.
+
+
+
 README
 ======
 
